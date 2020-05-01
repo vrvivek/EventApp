@@ -24,6 +24,18 @@ namespace EventApp.Controllers
             ViewBag.state = db.Tblstates.ToList();
             return View();
         }
+
+        public string CityBystate(int sid)
+        {
+            string city = "<option value='-1'>Select City</option>";
+            List<Tblcity> clist =(List<Tblcity>)Session["city"];
+            foreach (Tblcity i in clist.Where(a=>a.Stateid==sid))
+            {
+                city += "<option value='"+i.Cityid.ToString()+"'>"+i.Cityname+"</option>";
+            }
+            return city;
+        }
+
         // GET: UrLogin/Details/5
         public ActionResult Details(int id)
         {

@@ -249,7 +249,7 @@
                         </div>
                         <div class="form-item">
                             <select id="Cityid" name="Cityid" class="col-md-12" required>
-                                <option value="-1">Select City</option>\    
+                                <option value="-1">Select City</option>  
                             </select>
                         </div>
                         @*<div class="form-item">
@@ -501,9 +501,9 @@
     <script type="text/javascript">
         function getcityBystate(sid) {
             $.ajax({
-                url: "",
+                url: "@Url.Action("CityBystate", "UrLogin",null)?sid="+sid,
                 success: function (city) {
-                    $("#Cityid").append(city);
+                    $("#Cityid").html(city);
                 }
             });
         }
