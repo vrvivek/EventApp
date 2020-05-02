@@ -1,3 +1,5 @@
-.vs/
-EventApp/obj/
-EventApp/bin/
+.vs
+
+EventApp/obj
+
+EventApp/bin
