@@ -1272,7 +1272,7 @@ button {
           right: -100%; }
         .reglog-modal-wrapper .rightside-content .or-text span:before {
           left: -100%; }
-    .reglog-modal-wrapper .rightside-content .login-form .form-item input, .reglog-modal-wrapper .rightside-content .login-form .form-item select {
+    .reglog-modal-wrapper .rightside-content .login-form .form-item input, .reglog-modal-wrapper .rightside-content .login-form .form-item select, .reglog-modal-wrapper .rightside-content .login-form .form-item label {
         width: 100%;
         border: none;
         height: 50px;
