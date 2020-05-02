@@ -1,4 +1,4 @@
 .gitignore
 .vs
-EventApp/obj
-EventApp/bin
+EventApp/obj/
+EventApp/bin/
