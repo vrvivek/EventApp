@@ -25,9 +25,30 @@ namespace EventApp.Controllers
             return View();
         }
 
+        // POST: UrLogin/Register
+        [HttpPost]
+        public ActionResult Register(Tbluser ur,HttpPostedFileBase Profilepic)
+        {
+            return RedirectToAction("Index");
+        }
+
+        public string CheckUsername(string name)
+        {
+            if (name.Contains(" "))
+                return "Username name can not contains space";
+            else
+            {
+                if (db.Tblusers.Where(a => a.Username == name).Count() > 0)
+                {
+                    return "Username is alreay taken.";
+                }
+                else
+                    return "";
+            }
+        }
         public string CityBystate(int sid)
         {
-            string city = "<option value='-1'>Select City</option>";
+            string city = "<option value=''>Select City</option>";
             List<Tblcity> clist =(List<Tblcity>)Session["city"];
             foreach (Tblcity i in clist.Where(a=>a.Stateid==sid))
             {

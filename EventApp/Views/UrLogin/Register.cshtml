@@ -43,7 +43,7 @@
 
     <style type="text/css">
         .sticky {
-            top: 10;
+            top: 10px;
             left: 0;
             right: 0;
             width: 100%;
@@ -197,7 +197,7 @@
         <div class="overlay-black clearfix">
 
             <!-- leftside-content - start -->
-            <div class="leftside-content">
+            <div class="leftside-content" style="height: 824px !important">
                 <div class="site-logo-wrapper mb-80" style="padding-top:20px">
                     <a href="#!" class="logo">
                         <img src="~/Content/User/assets/images/2.site-logo.png" alt="logo_not_found">
@@ -212,7 +212,7 @@
             </div>
             <!-- leftside-content - end -->
             <!-- rightside-content - start -->
-            <div class="rightside-content text-center">
+            <div class="rightside-content text-center" style="height: 824px !important">
 
                 <div class="mb-30">
                     <h2 class="form-title title-large white-color">Account <strong>Register</strong></h2>
@@ -221,24 +221,30 @@
 
                 <div class="login-form text-center mb-50">
                     <form action="" method="post" enctype="multipart/form-data">
-                        <div class="form-item">
-                            <input type="text" name="Username" placeholder="User Name">
+                        <div class="form-group" style="border: none;height: 50px;display: block;padding: 14px 10px;margin-bottom: 10px;border-radius: 30px;background-color: #ffffff;">
+                            Client<input type="radio" name="Usertype" class="col-md-3" value="1" required autofocus/>
+                            Eventers<input type="radio" name="Usertype"class="col-md-3" value="1" required/>
                         </div>
                         <div class="form-item">
-                            <input type="password" name="Password" placeholder="Password">
+                            <input type="text" id="Username" onblur="checkusername(this.value);" name="Username" placeholder="User Name" title="Username Without Space and atleast 3 or more characters" pattern="[A-Za-z0-9]{3,}"s required>
+                            <span id="uname" style="color:white"></span>
                         </div>
                         <div class="form-item">
-                            <input type="password" name="CPassword" placeholder="Repeat Password">
+                            <input type="password" id="Password" name="Password" placeholder="Password" required>
                         </div>
                         <div class="form-item">
-                            <input type="email" name="Email" placeholder="Email Address">
+                            <input type="password" id="CPassword" name="CPassword" placeholder="Repeat Password" required>
+                            <span id="pwd" style="color:white"></span>
                         </div>
                         <div class="form-item">
-                            <input type="number" name="Contactno" maxlength="10" min="10" placeholder="Enter Contact No" />
+                            <input type="email" name="Email" onfocus="checkpwd()" placeholder="Email Address" required>
+                        </div>
+                        <div class="form-item">
+                            <input type="text" name="Contactno" pattern="[0-9]{10}" placeholder="Enter Contact No" required/>
                         </div>
                         <div class="form-item">
                             <select id="state" name="state" class="col-md-12" onchange="getcityBystate(this.value)" required>
-                                <option value="-1">Select State</option>
+                                <option value="">Select State</option>
                                 @{ 
                                     foreach (EventApp.Models.Tblstate i in ViewBag.state)
                                     {
@@ -249,7 +255,7 @@
                         </div>
                         <div class="form-item">
                             <select id="Cityid" name="Cityid" class="col-md-12" required>
-                                <option value="-1">Select City</option>  
+                                <option value="">Select City</option>  
                             </select>
                         </div>
                         <div class="form-item">
@@ -499,13 +505,47 @@
     <!-- custom jquery include -->
     <script src="~/Content/User/assets/js/custom.js"></script>
     <script type="text/javascript">
+        $(document).ready(function () {
+            $("#uname").hide();
+            $("#pwd").hide();
+        });
         function getcityBystate(sid) {
+            if (sid == "")
+                sid = "0";
             $.ajax({
                 url: "@Url.Action("CityBystate", "UrLogin",null)?sid="+sid,
                 success: function (city) {
                     $("#Cityid").html(city);
                 }
             });
+        }
+        function checkusername(name) {
+            if (name == "")
+            {
+                $("#uname").show();
+                $("#uname").html("Please Fill this Fields");
+                $("#Username").focus();
+            }
+            else
+            {
+                $.ajax({
+                    url: "@Url.Action("CheckUsername", "UrLogin",null)?name=" + name,
+                    success: function (r) {
+                        if(r=!"")
+                            $("#uname").show();
+                        $("#uname").html(r);
+                    }
+                });
+            }
+        }
+        function checkpwd() {
+            var pass = $("#Password").val();
+            var cpass = $("#CPassword").val();
+            if (pass != cpass)
+            {
+                $("#pwd").show();
+                $("#pwd").html("Password is not match");
+            }
         }
     </script>
 </body>
