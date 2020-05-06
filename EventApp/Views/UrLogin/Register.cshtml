@@ -43,7 +43,7 @@
 
     <style type="text/css">
         .sticky {
-            top: 10px;
+            top: 0px;
             left: 0;
             right: 0;
             width: 100%;
@@ -222,11 +222,11 @@
                 <div class="login-form text-center mb-50">
                     <form action="" method="post" enctype="multipart/form-data">
                         <div class="form-group" style="border: none;height: 50px;display: block;padding: 14px 10px;margin-bottom: 10px;border-radius: 30px;background-color: #ffffff;">
-                            Client<input type="radio" name="Usertype" class="col-md-3" value="1" required autofocus/>
-                            Eventers<input type="radio" name="Usertype"class="col-md-3" value="1" required/>
+                            Client<input type="radio" name="Usertype" class="col-md-3" value="1" required autofocus />
+                            Eventers<input type="radio" name="Usertype" class="col-md-3" value="2" required />
                         </div>
                         <div class="form-item">
-                            <input type="text" id="Username" onblur="checkusername(this.value);" name="Username" placeholder="User Name" title="Username Without Space and atleast 3 or more characters" pattern="[A-Za-z0-9]{3,}"s required>
+                            <input type="text" id="Username" onblur="checkusername(this.value);" name="Username" placeholder="Username" title="Username Without Space and atleast 3 or more characters" pattern="[A-Za-z0-9]{3,}" s required>
                             <span id="uname" style="color:white"></span>
                         </div>
                         <div class="form-item">
@@ -240,12 +240,12 @@
                             <input type="email" name="Email" onfocus="checkpwd()" placeholder="Email Address" required>
                         </div>
                         <div class="form-item">
-                            <input type="text" name="Contactno" pattern="[0-9]{10}" placeholder="Enter Contact No" required/>
+                            <input type="text" name="Contactno" pattern="[0-9]{10}" title="Please Enter 10 Digit Contact No." placeholder="Enter Contact No" required />
                         </div>
                         <div class="form-item">
                             <select id="state" name="state" class="col-md-12" onchange="getcityBystate(this.value)" required>
                                 <option value="">Select State</option>
-                                @{ 
+                                @{
                                     foreach (EventApp.Models.Tblstate i in ViewBag.state)
                                     {
                                         <option value="@i.Stateid">@i.Statename</option>
@@ -255,12 +255,13 @@
                         </div>
                         <div class="form-item">
                             <select id="Cityid" name="Cityid" class="col-md-12" required>
-                                <option value="">Select City</option>  
+                                <option value="">Select City</option>
                             </select>
                         </div>
                         <div class="form-item">
-                            <input type="file" accept="image/png,image/jpeg" title="Profile Image" name="Profilepic" required/>
+                            <input type="file" accept="image/png,image/jpeg" title="Profile Image" name="Profilepic" required />
                         </div>
+                        <div class="form-item" style="color:red">@ViewBag.msg</div>
                         <input type="submit" class="login-btn" value="Sign Up" />
                     </form>
                 </div>
@@ -531,7 +532,7 @@
                 $.ajax({
                     url: "@Url.Action("CheckUsername", "UrLogin",null)?name=" + name,
                     success: function (r) {
-                        if(r=!"")
+                        if(r!="")
                             $("#uname").show();
                         $("#uname").html(r);
                     }
@@ -541,11 +542,19 @@
         function checkpwd() {
             var pass = $("#Password").val();
             var cpass = $("#CPassword").val();
-            if (pass != cpass)
-            {
+            if (pass == "")
+                $("#Password").focus();
+            else if (cpass == "")
+                $("#CPassword").focus();
+            else if (pass != cpass) {
                 $("#pwd").show();
                 $("#pwd").html("Password is not match");
+                $("#Password").focus();
             }
+            else if (pass == cpass) {
+                $("#pwd").hide();
+            }
+            return false;
         }
     </script>
 </body>

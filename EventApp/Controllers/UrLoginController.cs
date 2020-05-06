@@ -1,6 +1,7 @@
 ﻿using EventApp.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,7 +30,45 @@ namespace EventApp.Controllers
         [HttpPost]
         public ActionResult Register(Tbluser ur,HttpPostedFileBase Profilepic)
         {
-            return RedirectToAction("Index");
+            Session["city"] = db.Tblcities.ToList();
+            ViewBag.state = db.Tblstates.ToList();
+            if (ur!= null)
+            {
+                var filename = Path.GetFileName(Profilepic.FileName);
+                ur.Registrationdate = DateTime.Now;
+                Random random = new Random();
+                filename = random.Next(0,99999)+filename;
+                if(ur.Usertype==1)
+                {
+                    var path = Path.Combine(Server.MapPath("~/Content/Shared/Client_Image"),filename);
+                    Profilepic.SaveAs(path);
+                    ur.Profilepic = filename;
+                    db.Tblusers.Add(ur);
+                    db.SaveChanges();
+                    Tblclient c = new Tblclient();
+                    c.Userid = ur.Userid;
+                    c.Name = ur.Username;
+                    db.Tblclients.Add(c);
+                    db.SaveChanges();
+                }
+                if(ur.Usertype==2)
+                {
+                    var path = Path.Combine(Server.MapPath("~/Content/Shared/Eventer_Image"), filename);
+                    Profilepic.SaveAs(path);
+                    ur.Profilepic = filename;
+                    db.Tblusers.Add(ur);
+                    db.SaveChanges();
+                    Tbleventmanager em = new Tbleventmanager();
+                    em.Userid = ur.Userid;
+                    db.Tbleventmanagers.Add(em);
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+                ViewBag.msg = "Please Fill All The Fields.";
+            }
+            return View();
         }
 
         public string CheckUsername(string name)
