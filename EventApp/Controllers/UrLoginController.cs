@@ -14,8 +14,11 @@ namespace EventApp.Controllers
         // GET: UrLogin
         public ActionResult Index(string username="",string password="")
         {
-            //if(username != "" && password != "")
-            return View();
+            if (username != "" && password != "")
+                ViewBag.msg = "";
+            else
+                ViewBag.msg = "";
+                return View();
         }
 
         //GET: UrLogin/Register
