@@ -12,12 +12,32 @@ namespace EventApp.Controllers
     {
         EventDB db = new EventDB();
         // GET: UrLogin
-        public ActionResult Index(string username="",string password="")
+        public ActionResult Index(int? Usertype,string username="",string password="")
         {
-            if (username != "" && password != "")
-                ViewBag.msg = "";
+            if (Usertype != null && username != "" && password != "")
+            {
+                Tbluser ur = db.Tblusers.SingleOrDefault(a => a.Username == username && a.Password == password && a.Usertype == Usertype);
+                if (ur != null)
+                {
+                    if (Usertype == 1)
+                    {
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+                    ViewBag.msgtype = "text";
+                    ViewBag.msg = "Invalid Username and Password";
+                }
+            }
             else
+            {
+                ViewBag.msgtype = "hidden";
                 ViewBag.msg = "";
+            }
                 return View();
         }
 

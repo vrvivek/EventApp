@@ -238,12 +238,17 @@
 
                 <div class="login-form text-center mb-50">
                     <form action="" method="get">
-                        <div class="form-item">
-                            <input type="text" name="username" placeholder="example@gmail.com">
+                        <div class="form-group" style="border: none;height: 50px;display: block;padding: 14px 10px;margin-bottom: 10px;border-radius: 30px;background-color: #ffffff;">
+                            Client<input type="radio" name="Usertype" class="col-md-2 col-md-offset-2" value="1" required />
+                            Eventers<input type="radio" name="Usertype" class="col-md-2" value="2" required />
                         </div>
                         <div class="form-item">
-                            <input type="password" name="password" placeholder="Password">
+                            <input type="text" name="username" placeholder="Enter Username" title="Enter Username" required>
                         </div>
+                        <div class="form-item">
+                            <input type="password" name="password" placeholder="Password" required>
+                        </div>
+                        <div class="form-item"><input type="@ViewBag.msgtype" readonly style="color:red" value="@ViewBag.msg" /></div>
                         <button type="submit" class="login-btn">login now</button>
                     </form>
                 </div>
