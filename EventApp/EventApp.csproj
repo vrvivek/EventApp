@@ -159,7 +159,11 @@
     <Compile Include="Controllers\Admin\AdmCityController.cs" />
     <Compile Include="Controllers\Admin\AdmClientController.cs" />
     <Compile Include="Controllers\Admin\AdmStateController.cs" />
+    <Compile Include="Controllers\Admin\AdmSubcategoryController.cs" />
     <Compile Include="Controllers\Admin\LoginController.cs" />
+    <Compile Include="Controllers\UrClientProfileController.cs" />
+    <Compile Include="Controllers\UrEventManagerProfileController.cs" />
+    <Compile Include="Controllers\UrEventsController.cs" />
     <Compile Include="Controllers\UrLoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -545,12 +549,21 @@
     <Content Include="Views\AdmCity\Details.cshtml" />
     <Content Include="Views\AdmCity\Edit.cshtml" />
     <Content Include="Views\AdmCity\Index.cshtml" />
+    <Content Include="Views\UrEvents\Index.cshtml" />
+    <Content Include="Views\AdmCategory\Create.cshtml" />
+    <Content Include="Views\AdmSubcategory\Create.cshtml" />
+    <Content Include="Views\AdmSubcategory\Delete.cshtml" />
+    <Content Include="Views\AdmSubcategory\Details.cshtml" />
+    <Content Include="Views\AdmSubcategory\Edit.cshtml" />
+    <Content Include="Views\AdmSubcategory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Shared\Client_Image\" />
     <Folder Include="Content\Shared\Eventer_Image\" />
     <Folder Include="Views\AdmUser\" />
+    <Folder Include="Views\UrClientProfile\" />
+    <Folder Include="Views\UrEventManagerProfile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -10,6 +10,13 @@ namespace EventApp.Controllers.Admin
     public class AdmCategoryController : Controller
     {
         EventDB db = new EventDB();
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (Session["admname"] != null)
+                base.OnActionExecuting(filterContext);
+            else
+                RedirectToAction("Index", "Login");
+        }
         // GET: AdmCategory
         public ActionResult Index()
         {
@@ -25,23 +32,32 @@ namespace EventApp.Controllers.Admin
         // GET: AdmCategory/Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["admname"] != null)
+                return View();
+            else
+                return RedirectToAction("Index","Login");
         }
 
         // POST: AdmCategory/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Tblcategory c)
         {
-            try
+            if (Session["admname"] != null)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                if (db.Tblcategories.SingleOrDefault(a => a.Categoryname == c.Categoryname) != null)
+                {
+                    db.Tblcategories.Add(c);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ViewBag.msg = "Category Already Exist.";
+                    return View();
+                }
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return RedirectToAction("Index", "Login");
         }
 
         // GET: AdmCategory/Edit/5

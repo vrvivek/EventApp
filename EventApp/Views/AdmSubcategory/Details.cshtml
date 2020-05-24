@@ -1,0 +1,35 @@
+﻿@model EventApp.Models.Tblsubcategory
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tblsubcategory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tblcategory.Categoryname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tblcategory.Categoryname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Subcategoryname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subcategoryname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Subcategoryid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

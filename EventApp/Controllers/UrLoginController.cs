@@ -19,12 +19,21 @@ namespace EventApp.Controllers
                 Tbluser ur = db.Tblusers.SingleOrDefault(a => a.Username == username && a.Password == password && a.Usertype == Usertype);
                 if (ur != null)
                 {
-                    if (Usertype == 1)
+                    Session["uid"] = ur.Userid;
+                    Session["uname"] = ur.Username;
+                    Session["utype"] = ur.Usertype;
+                    Session["upic"] = ur.Profilepic;
+                    if (ur.Usertype == 1)
                     {
+                        Tblclient c = db.Tblclients.SingleOrDefault(a=>a.Userid==ur.Userid);
+                        Session["cid"] = c.Clientid;
+                        return RedirectToAction("Index","UrEvents");
                     }
                     else
                     {
-
+                        Tbleventmanager m = db.Tbleventmanagers.SingleOrDefault(a=>a.Userid==ur.Userid);
+                        Session["mid"] = m.Eventmanagerid;
+                        return RedirectToAction("Index", "UrEvents");
                     }
                 }
                 else
@@ -38,7 +47,7 @@ namespace EventApp.Controllers
                 ViewBag.msgtype = "hidden";
                 ViewBag.msg = "";
             }
-                return View();
+            return View();
         }
 
         //GET: UrLogin/Register
