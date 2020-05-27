@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -36,6 +35,8 @@
 
     <!-- custom css include -->
     <link rel="stylesheet" type="text/css" href="~/Content/User/assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
 
     <style type="text/css">
         .sticky {
@@ -78,13 +79,13 @@
                                 <li>
                                     <a href="#!">
                                         <i class="fas fa-envelope"></i>
-                                        info@harmoni.com
+                                        info@Eventively.com
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#!">
                                         <i class="fas fa-phone"></i>
-                                        100-2222-9999
+                                        +91 9876543210
                                     </a>
                                 </li>
                             </ul>
@@ -95,18 +96,30 @@
                     <div class="col-lg-6">
                         <div class="register-login-group">
                             <ul>
-                                <li>
-                                    <a href="#register-modal" class="register-modal-btn">
-                                        <i class="fas fa-user"></i>
-                                        Register
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#login-modal" class="login-modal-btn">
-                                        <i class="fas fa-lock"></i>
-                                        Login
-                                    </a>
-                                </li>
+                                @if (Session==null)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Register","UrLogin",null)" class="register-modal-btn">
+                                            <i class="fas fa-user"></i>
+                                            Register
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Index","UrLogin",null)" class="login-modal-btn">
+                                            <i class="fas fa-lock"></i>
+                                            Login
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="@Url.Action("LogOut","UrLogin",null)" class="btn btn-default">
+                                            <i class="fas fa-sign-out-alt"></i>
+                                            LogOut
+                                        </a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -508,9 +521,9 @@
     <!-- default-footer-section - end
         ================================================== -->
     <!-- fraimwork - jquery include -->
-    <script src="~/Content/User/assets/js/jquery-3.3.1.min.js"></script>
-    <script src="~/Content/User/assets/js/popper.min.js"></script>
+    @*<script src="~/Content/User/assets/js/jquery-3.3.1.min.js"></script>*@
     <script src="~/Content/User/assets/js/bootstrap.min.js"></script>
+    <script src="~/Content/User/assets/js/popper.min.js"></script>
 
     <!-- carousel jquery include -->
     <script src="~/Content/User/assets/js/slick.min.js"></script>
@@ -536,7 +549,6 @@
 
     <!-- color panal - jqury include -->
     <!-- <script src="~/Content/User/assets/js/style-switcher.js"></script> -->
-    
     <!-- custom jquery include -->
     <script src="~/Content/User/assets/js/custom.js"></script>
 

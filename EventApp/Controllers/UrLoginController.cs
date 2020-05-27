@@ -53,9 +53,14 @@ namespace EventApp.Controllers
         //GET: UrLogin/Register
         public ActionResult Register()
         {
-            Session["city"] = db.Tblcities.ToList();
-            ViewBag.state = db.Tblstates.ToList();
-            return View();
+            if (Session["uid"] == null)
+            {
+                Session["city"] = db.Tblcities.ToList();
+                ViewBag.state = db.Tblstates.ToList();
+                return View();
+            }
+            else
+                return RedirectToAction("Index","UrEvents");
         }
 
         // POST: UrLogin/Register
@@ -126,6 +131,12 @@ namespace EventApp.Controllers
                 city += "<option value='"+i.Cityid.ToString()+"'>"+i.Cityname+"</option>";
             }
             return city;
+        }
+
+        public ActionResult LogOut()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index");
         }
 
         // GET: UrLogin/Details/5

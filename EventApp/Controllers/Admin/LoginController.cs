@@ -39,6 +39,12 @@ namespace EventApp.Controllers.Admin
             return View();
         }
 
+        public ActionResult LogOut()
+        {
+            Session.Abandon();
+            return RedirectToAction("Index");
+        }
+
         // GET: Login/Details/5
         public ActionResult Details(int id)
         {
