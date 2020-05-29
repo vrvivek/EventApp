@@ -1,0 +1,90 @@
+﻿@model EventApp.Models.Tblmanagertender
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tblmanagertender</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tblcity.Cityname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tblcity.Cityname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tbleventmanager.Companyname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tbleventmanager.Companyname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tblsubcategory.Subcategoryname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tblsubcategory.Subcategoryname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Startingdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Startingdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Endingdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Endingdate)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    @foreach (EventApp.Models.Tblmanagertenderbid i in Model.Tblmanagertenderbids)
+    {
+        @i.Description.ToString()
+        @i.Price.ToString()
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Managertenderid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

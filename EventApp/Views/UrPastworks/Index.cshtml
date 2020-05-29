@@ -1,0 +1,91 @@
+﻿@model IEnumerable<EventApp.Models.Tblpastwork>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<section id="blog-section" class="blog-section sec-ptb-100 clearfix">
+    <div id="grid-layout" class="tab-pane fade in active show">
+        <div class="row">
+
+            <!-- blog-grid-item - start -->
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="blog-grid-item">
+
+                        <div class="event-date" style="color:orangered;">
+                            <span class="date">@item.Createddate</span>
+                        </div>
+
+                        
+                        <div class="blog-content" style="margin-top:15px;">
+                            <a href="#!" class="tag">
+                                <i class="fas fa-bookmark"></i>
+                                @item.Tblsubcategory.Subcategoryname
+                            </a>
+                            <h5 class="blog-title">@item.Tbleventmanager.Name@*biggest musical event*@</h5>
+                            <p class="mb-15">
+                                @item.Description
+                            </p>
+                            @*<a href="#!" class="tickets-details-btn">
+            Read More
+        </a>*@
+                            @Html.ActionLink("Read More", "Details", new { id = item.Pastworkid })
+                        </div>
+
+                    </div>
+                </div>
+            }
+            <!-- blog-grid-item - end -->
+        </div>
+    </div>
+</section>
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Tbleventmanager.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Createddate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tblsubcategory.Subcategoryname)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tbleventmanager.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Createddate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tblsubcategory.Subcategoryname)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Pastworkid }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Pastworkid })
+            </td>
+        </tr>
+    }
+
+</table>*@
+

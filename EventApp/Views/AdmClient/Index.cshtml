@@ -23,6 +23,9 @@
                 @Html.DisplayNameFor(model => model.Gender)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Tbluser.Status)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
@@ -46,6 +49,16 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @if (item.Tbluser.Status == 0)
+                    {
+                        <a href=""><i class="fa fa-lock-open" ></i></a>
+                    }
+                    else
+                    {
+                        <a href=""><i class="ion ion-locked" ></i></a>
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)

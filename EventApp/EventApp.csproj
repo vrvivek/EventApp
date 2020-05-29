@@ -158,13 +158,20 @@
     <Compile Include="Controllers\Admin\AdmCategoryController.cs" />
     <Compile Include="Controllers\Admin\AdmCityController.cs" />
     <Compile Include="Controllers\Admin\AdmClientController.cs" />
+    <Compile Include="Controllers\Admin\AdmDashboardController.cs" />
+    <Compile Include="Controllers\Admin\AdmEventmanagerController.cs" />
+    <Compile Include="Controllers\Admin\AdmManagertenderController.cs" />
+    <Compile Include="Controllers\Admin\AdmProfileController.cs" />
     <Compile Include="Controllers\Admin\AdmStateController.cs" />
     <Compile Include="Controllers\Admin\AdmSubcategoryController.cs" />
+    <Compile Include="Controllers\Admin\AdmUsertenderController.cs" />
     <Compile Include="Controllers\Admin\LoginController.cs" />
     <Compile Include="Controllers\UrClientProfileController.cs" />
     <Compile Include="Controllers\UrEventManagerProfileController.cs" />
+    <Compile Include="Controllers\UrEventManagersController.cs" />
     <Compile Include="Controllers\UrEventsController.cs" />
     <Compile Include="Controllers\UrLoginController.cs" />
+    <Compile Include="Controllers\UrPastworksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -197,6 +204,7 @@
   <ItemGroup>
     <Content Include="Content\admin\dist\css\adminlte.min.css" />
     <Content Include="Content\admin\dist\img\AdminLTELogo.png" />
+    <Content Include="Content\admin\dist\img\AdminLTELogo1.png" />
     <Content Include="Content\admin\dist\img\avatar.png" />
     <Content Include="Content\admin\dist\img\avatar04.png" />
     <Content Include="Content\admin\dist\img\avatar2.png" />
@@ -354,6 +362,8 @@
     <Content Include="Content\User\assets\images\service\3.image.png" />
     <Content Include="Content\User\assets\images\service\4.4.image.png" />
     <Content Include="Content\User\assets\images\service\4.image.png" />
+    <Content Include="Content\User\assets\images\site-logo.png" />
+    <Content Include="Content\User\assets\images\site-logo1.png" />
     <Content Include="Content\User\assets\images\slider\slider-bg1.jpg" />
     <Content Include="Content\User\assets\images\slider\slider-bg10.jpg" />
     <Content Include="Content\User\assets\images\slider\slider-bg11.jpg" />
@@ -612,14 +622,26 @@
     <Content Include="Views\AdmSubcategory\Edit.cshtml" />
     <Content Include="Views\AdmSubcategory\Index.cshtml" />
     <Content Include="Views\UrEvents\Create.cshtml" />
+    <Content Include="Views\AdmEventmanager\Index.cshtml" />
+    <Content Include="Views\AdmUsertender\Index.cshtml" />
+    <Content Include="Views\AdmManagertender\Index.cshtml" />
+    <Content Include="Views\AdmEventmanager\Details.cshtml" />
+    <Content Include="Views\AdmUsertender\Details.cshtml" />
+    <Content Include="Views\AdmManagertender\Details.cshtml" />
+    <Content Include="Views\UrPastworks\Index.cshtml" />
+    <Content Include="Views\UrPastworks\Create.cshtml" />
+    <Content Include="Views\UrPastworks\Details.cshtml" />
+    <Content Include="Views\UrEventManagerProfile\Index.cshtml" />
+    <Content Include="Views\UrEventManagers\Index.cshtml" />
+    <Content Include="Views\UrClientProfile\Index.cshtml" />
+    <Content Include="Views\AdmDashboard\Index.cshtml" />
+    <Content Include="Views\AdmProfile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Shared\Client_Image\" />
     <Folder Include="Content\Shared\Eventer_Image\" />
     <Folder Include="Views\AdmUser\" />
-    <Folder Include="Views\UrClientProfile\" />
-    <Folder Include="Views\UrEventManagerProfile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

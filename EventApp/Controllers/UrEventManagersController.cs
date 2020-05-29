@@ -5,60 +5,33 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace EventApp.Controllers.Admin
+namespace EventApp.Controllers
 {
-    public class LoginController : Controller
+    public class UrEventManagersController : Controller
     {
         EventDB db = new EventDB();
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            if (Session["admname"] == null)
-                base.OnActionExecuting(filterContext);
-            else
-                RedirectToAction("Index", "AdmClient");
-        }
-        // GET: Login
+        // GET: UrEventManagers
         public ActionResult Index()
         {
-            ViewBag.msg = "";
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Index(string username,string password)
-        {
-            Tbladmin adm = db.Tbladmins.SingleOrDefault(a=>a.Username==username && a.Password==password);
-            if (adm != null)
-            {
-                ViewBag.msg = username + " " + password;
-                Session["admname"] = username;
-                Session["admid"] = adm.Adminid;
-                return RedirectToAction("Index", "AdmDashboard");
-            }
+            if (Session["uid"] != null)
+                return View(db.Tbleventmanagers.ToList()) ;
             else
-                ViewBag.msg = " Invalid Username And Password ";
-            return View();
+                return RedirectToAction("Index", "UrLogin");
         }
 
-        public ActionResult LogOut()
-        {
-            Session.Abandon();
-            return RedirectToAction("Index");
-        }
-
-        // GET: Login/Details/5
+        // GET: UrEventManagers/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Login/Create
+        // GET: UrEventManagers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Login/Create
+        // POST: UrEventManagers/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -74,13 +47,13 @@ namespace EventApp.Controllers.Admin
             }
         }
 
-        // GET: Login/Edit/5
+        // GET: UrEventManagers/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Login/Edit/5
+        // POST: UrEventManagers/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -96,13 +69,13 @@ namespace EventApp.Controllers.Admin
             }
         }
 
-        // GET: Login/Delete/5
+        // GET: UrEventManagers/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Login/Delete/5
+        // POST: UrEventManagers/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

@@ -11,7 +11,10 @@ namespace EventApp.Controllers
         // GET: UrEvents
         public ActionResult Index()
         {
-            return View(db.Tblusertenders.ToList());
+            if (Session["uid"] != null )
+                return View(db.Tblusertenders.ToList());
+            else
+                return RedirectToAction("Index", "UrLogin");
         }
 
         // GET: UrEvents/Details/5
@@ -26,6 +29,7 @@ namespace EventApp.Controllers
             if (Session["uid"] != null && Session["cid"] != null)
             {
                 ViewBag.Cityid = new SelectList(db.Tblcities.ToList(), "Cityid", "Cityname");
+                ViewBag.Subcategoryid = new SelectList(db.Tblsubcategories.ToList(), "Subcategoryid", "Subcategoryname");
                 return View();
             }
             else
@@ -37,10 +41,21 @@ namespace EventApp.Controllers
         public ActionResult Create(Tblusertender ut)
         {
             ViewBag.Cityid = new SelectList(db.Tblcities, "Cityid", "Cityname");
-            ut.Startingdate = DateTime.Now;
-            ViewBag.d = ut.Startingdate;
-            ViewBag.date = ut.Endingdate;
-            return View();
+            ViewBag.Subcategoryid = new SelectList(db.Tblsubcategories.ToList(), "Subcategoryid", "Subcategoryname");
+            if (ut != null && ut.Description!=null && ut.Price!=0) 
+            {
+                ut.Startingdate = DateTime.Now;
+                ut.Status = 0;
+                ut.Clientid = Convert.ToInt32(Session["cid"]);
+                db.Tblusertenders.Add(ut);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else 
+            {
+                ViewBag.msg = "Please Fill All The Fields";
+                return View(ut);
+            }
         }
 
         // GET: UrEvents/Edit/5

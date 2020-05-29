@@ -15,80 +15,71 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h2>Add Events</h2>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    <h2>Add Events</h2>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cityid, "Select City", htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.DropDownListFor(model => model.Cityid,null,  new { @class = "form-control", @style="height:35px"})
-                @Html.ValidationMessageFor(model => model.Cityid, "", new { @class = "text-danger" })
-                @*<select name="Cityid" id="Cityid" class="form-control" style="height:35px">
+    <div class="form-group">
+        @Html.LabelFor(model => model.Cityid, "Select City", htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.DropDownListFor(model => model.Cityid, null, new { @class = "form-control", @style = "height:35px" })
+            @Html.ValidationMessageFor(model => model.Cityid, "", new { @class = "text-danger" })
+            @*<select name="Cityid" id="Cityid" class="form-control" style="height:35px">
                     @foreach (SelectListItem item in ViewBag.Cityid)
                     {
                         <option value="@item.Value">@item.Text</option>
                     }
                 </select>*@
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group" id="datetime">
-            @Html.Label("Ending Date", htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
-                <div class='input-group date' id='datetimepicker3'>
-                    <input type='text' name="Endingdate" class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-        </div>
-
-
-
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.Subcategoryid, "Subcategoryid", htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-9">
-                    @Html.DropDownList("Subcategoryid", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Subcategoryid, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.Endingdate, htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="col-md-9">
-                    @Html.EditorFor(model => model.Endingdate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Endingdate, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-        <div class="form-group">
-            <div class="col-md-offset-3 col-md-10">
-                <input type="submit" value="Create" class="btn btn-info col-md-8" />
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-1 col-md-5">@ViewBag.d</div>
-            <div class="col-md-offset-1 col-md-5">@ViewBag.date</div>
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Subcategoryid, "Subcategoryid", htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.DropDownList("Subcategoryid", null, htmlAttributes: new { @class = "form-control", @style = "height:35px" })
+            @Html.ValidationMessageFor(model => model.Subcategoryid, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" id="datetime">
+        @Html.Label("Ending Date", htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            <div class='input-group date' id='datetimepicker3'>
+                <input type='text' name="Endingdate" class="form-control" autocomplete="off" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>  
+
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-10">
+            <input type="submit" value="Create" class="btn btn-info col-md-8" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-1 col-md-9">@ViewBag.msg</div>
+    </div>
+</div>
 }
 
 <div>

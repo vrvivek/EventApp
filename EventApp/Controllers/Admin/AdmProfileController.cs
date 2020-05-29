@@ -7,58 +7,34 @@ using System.Web.Mvc;
 
 namespace EventApp.Controllers.Admin
 {
-    public class LoginController : Controller
+    public class AdmProfileController : Controller
     {
         EventDB db = new EventDB();
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            if (Session["admname"] == null)
-                base.OnActionExecuting(filterContext);
-            else
-                RedirectToAction("Index", "AdmClient");
-        }
-        // GET: Login
+        // GET: AdmProfile
         public ActionResult Index()
         {
-            ViewBag.msg = "";
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Index(string username,string password)
-        {
-            Tbladmin adm = db.Tbladmins.SingleOrDefault(a=>a.Username==username && a.Password==password);
-            if (adm != null)
+            if (Session["admid"] != null)
             {
-                ViewBag.msg = username + " " + password;
-                Session["admname"] = username;
-                Session["admid"] = adm.Adminid;
-                return RedirectToAction("Index", "AdmDashboard");
+                int id = Convert.ToInt32(Session["admid"]);
+                return View(db.Tbladmins.SingleOrDefault(a => a.Adminid ==id));
             }
             else
-                ViewBag.msg = " Invalid Username And Password ";
-            return View();
+                return RedirectToAction("Index", "Login");
         }
 
-        public ActionResult LogOut()
-        {
-            Session.Abandon();
-            return RedirectToAction("Index");
-        }
-
-        // GET: Login/Details/5
+        // GET: AdmProfile/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Login/Create
+        // GET: AdmProfile/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Login/Create
+        // POST: AdmProfile/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -74,13 +50,13 @@ namespace EventApp.Controllers.Admin
             }
         }
 
-        // GET: Login/Edit/5
+        // GET: AdmProfile/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Login/Edit/5
+        // POST: AdmProfile/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -96,13 +72,13 @@ namespace EventApp.Controllers.Admin
             }
         }
 
-        // GET: Login/Delete/5
+        // GET: AdmProfile/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Login/Delete/5
+        // POST: AdmProfile/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

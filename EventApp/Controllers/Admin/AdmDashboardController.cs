@@ -1,5 +1,4 @@
-﻿using EventApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,58 +6,30 @@ using System.Web.Mvc;
 
 namespace EventApp.Controllers.Admin
 {
-    public class LoginController : Controller
+    public class AdmDashboardController : Controller
     {
-        EventDB db = new EventDB();
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
-        {
-            if (Session["admname"] == null)
-                base.OnActionExecuting(filterContext);
-            else
-                RedirectToAction("Index", "AdmClient");
-        }
-        // GET: Login
+        // GET: AdmDashboard
         public ActionResult Index()
         {
-            ViewBag.msg = "";
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Index(string username,string password)
-        {
-            Tbladmin adm = db.Tbladmins.SingleOrDefault(a=>a.Username==username && a.Password==password);
-            if (adm != null)
-            {
-                ViewBag.msg = username + " " + password;
-                Session["admname"] = username;
-                Session["admid"] = adm.Adminid;
-                return RedirectToAction("Index", "AdmDashboard");
-            }
+            if (Session["admname"] != null)
+                return View();
             else
-                ViewBag.msg = " Invalid Username And Password ";
-            return View();
+                return RedirectToAction("Index", "Login");
         }
 
-        public ActionResult LogOut()
-        {
-            Session.Abandon();
-            return RedirectToAction("Index");
-        }
-
-        // GET: Login/Details/5
+        // GET: AdmDashboard/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Login/Create
+        // GET: AdmDashboard/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Login/Create
+        // POST: AdmDashboard/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -74,13 +45,13 @@ namespace EventApp.Controllers.Admin
             }
         }
 
-        // GET: Login/Edit/5
+        // GET: AdmDashboard/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Login/Edit/5
+        // POST: AdmDashboard/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -96,13 +67,13 @@ namespace EventApp.Controllers.Admin
             }
         }
 
-        // GET: Login/Delete/5
+        // GET: AdmDashboard/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Login/Delete/5
+        // POST: AdmDashboard/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

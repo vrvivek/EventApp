@@ -1,0 +1,118 @@
+﻿@model EventApp.Models.Tblpastwork
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+    
+    <section id="blog-section" class="blog-section sec-ptb-100 clearfix col-md-12 col-sm-12 col-lg-12">
+        <div id="grid-layout" class="tab-pane fade in active show">
+            <div class="row">
+                
+                <!-- blog-grid-item - start -->
+                
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="blog-grid-item">
+
+                            <div class="event-date" style="color:orangered;">
+                                <span class="date">@Html.DisplayFor(model => model.Createddate,"dd-mm-yyyy")</span>
+                            </div>
+
+
+                            <div class="blog-content" style="margin-top:15px;">
+                                <a href="#!" class="tag">
+                                    <i class="fas fa-bookmark"></i>
+                                    @Html.DisplayFor(model => model.Tblsubcategory.Subcategoryname)
+                                </a>
+                                <h5 class="blog-title">@Html.DisplayFor(model => model.Tbleventmanager.Name)@*biggest musical event*@</h5>
+                                <p class="mb-15">
+                                    @Html.DisplayFor(model => model.Description)
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                
+                <!-- blog-grid-item - end -->
+            </div>
+        </div>
+    </section>
+        @*
+              <div><dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Tbleventmanager.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Tbleventmanager.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Tblsubcategory.Subcategoryname)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Tblsubcategory.Subcategoryname)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Createddate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Createddate)
+            </dd>
+        </dl>
+    </div>*@
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Pastworkid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+<hr />
+<h3 class="row col-md-12 col-lg-12 col-sm-12">Pastwork Images and Videos</h3>
+<hr />
+<section id="event-gallery-section" class="event-gallery-section sec-ptb-100 clearfix">
+    <div class="grid zoom-gallery clearfix mb-80" data-isotope="{ &quot;masonry&quot;: { &quot;columnWidth&quot;: 0 } }" style="position: relative; height: 731.25px;">
+        
+        
+        <div class="grid-item grid-item--height2 photo-gallery " data-category="photo-gallery" style="position: absolute; left: 0px; top: 0px;">
+            <a class="popup-link" href="~/Content/User/assets/images/gallery/1.image.jpg">
+                <img src="~/Content/User/assets/images/gallery/1.image.jpg" alt="Image_not_found">
+            </a>
+            
+        </div>
+        <div class="grid-item grid-item--width2 video-gallery " data-category="video-gallery" style="position: absolute; left: 292.5px; top: 0px;">
+            <a class="popup-youtube" href="https://youtu.be/-haiaZ011OM">
+                <img src="~/Content/User/assets/images/gallery/2.image.jpg" alt="Image_not_found">
+            </a>
+            
+        </div>
+        <div class="grid-item photo-gallery " data-category="photo-gallery" style="position: absolute; left: 877.5px; top: 0px;">
+            <a class="popup-link" href="~/Content/User/assets/images/gallery/3.image.jpg">
+                <img src="~/Content/User/assets/images/gallery/3.image.jpg" alt="Image_not_found">
+            </a>
+            
+        </div>
+
+        <div class="grid-item photo-gallery " data-category="photo-gallery" style="position: absolute; left: 292.5px; top: 243.75px;">
+            <a class="popup-link" href="~/Content/User/assets/images/gallery/4.image.jpg">
+                <img src="~/Content/User/assets/images/gallery/4.image.jpg" alt="Image_not_found">
+            </a>
+            
+        </div>
+        <div class="grid-item grid-item--width2 video-gallery " data-category="video-gallery" style="position: absolute; left: 585px; top: 243.75px;">
+            <a class="popup-youtube" href="https://youtu.be/-haiaZ011OM">
+                <img src="~/Content/User/assets/images/gallery/5.image.jpg" alt="Image_not_found">
+            </a>
+        </div>
+    </div>
+</section>
+

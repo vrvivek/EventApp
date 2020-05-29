@@ -7,58 +7,35 @@ using System.Web.Mvc;
 
 namespace EventApp.Controllers.Admin
 {
-    public class LoginController : Controller
+    public class AdmManagertenderController : Controller
     {
         EventDB db = new EventDB();
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (Session["admname"] == null)
+            if (Session["admname"] != null)
                 base.OnActionExecuting(filterContext);
             else
-                RedirectToAction("Index", "AdmClient");
+                RedirectToAction("Index", "Login");
         }
-        // GET: Login
+        // GET: AdmManagertender
         public ActionResult Index()
         {
-            ViewBag.msg = "";
-            return View();
+            return View(db.Tblmanagertenders.ToList());
         }
 
-        [HttpPost]
-        public ActionResult Index(string username,string password)
-        {
-            Tbladmin adm = db.Tbladmins.SingleOrDefault(a=>a.Username==username && a.Password==password);
-            if (adm != null)
-            {
-                ViewBag.msg = username + " " + password;
-                Session["admname"] = username;
-                Session["admid"] = adm.Adminid;
-                return RedirectToAction("Index", "AdmDashboard");
-            }
-            else
-                ViewBag.msg = " Invalid Username And Password ";
-            return View();
-        }
-
-        public ActionResult LogOut()
-        {
-            Session.Abandon();
-            return RedirectToAction("Index");
-        }
-
-        // GET: Login/Details/5
+        // GET: AdmManagertender/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(db.Tblmanagertenders.SingleOrDefault(i=>i.Managertenderid==id));
         }
 
-        // GET: Login/Create
+        // GET: AdmManagertender/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Login/Create
+        // POST: AdmManagertender/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -74,13 +51,13 @@ namespace EventApp.Controllers.Admin
             }
         }
 
-        // GET: Login/Edit/5
+        // GET: AdmManagertender/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Login/Edit/5
+        // POST: AdmManagertender/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -96,13 +73,13 @@ namespace EventApp.Controllers.Admin
             }
         }
 
-        // GET: Login/Delete/5
+        // GET: AdmManagertender/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Login/Delete/5
+        // POST: AdmManagertender/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

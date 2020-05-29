@@ -1,0 +1,71 @@
+﻿@model EventApp.Models.Tbleventmanager
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tbleventmanager</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tbluser.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tbluser.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Companyname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Companyname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Website)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Website)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.About)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.About)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Coverpic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coverpic)
+        </dd>
+
+    </dl>
+    @foreach(EventApp.Models.Tblpastwork i in Model.Tblpastworks)
+    {
+        @i.Description.ToString()
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Eventmanagerid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

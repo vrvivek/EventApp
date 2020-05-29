@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EventApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,17 @@ namespace EventApp.Controllers
 {
     public class UrEventManagerProfileController : Controller
     {
+        EventDB db = new EventDB();
         // GET: UrEventManagerProfile
         public ActionResult Index()
         {
-            return View();
+            if (Session["uid"] != null)
+            {
+                int id = Convert.ToInt32(Session["mid"]);
+                return View(db.Tbleventmanagers.SingleOrDefault(e => e.Eventmanagerid == id));
+            }
+            else
+                return RedirectToAction("Index", "UrLogin");
         }
 
         // GET: UrEventManagerProfile/Details/5

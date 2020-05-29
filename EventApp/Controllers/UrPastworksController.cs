@@ -7,56 +7,58 @@ using System.Web.Mvc;
 
 namespace EventApp.Controllers
 {
-    public class UrClientProfileController : Controller
+    public class UrPastworksController : Controller
     {
         EventDB db = new EventDB();
-        // GET: UrClientProfile
+        // GET: UrPastworks
         public ActionResult Index()
         {
-            if (Session["uid"] != null)
-            {
-                int id = Convert.ToInt32(Session["cid"]);
-                return View(db.Tblclients.SingleOrDefault(c => c.Clientid == id));
-            }
-            else
-                return RedirectToAction("Index", "UrLogin");
+           
+                return View(db.Tblpastworks.ToList());
+            
         }
 
-        // GET: UrClientProfile/Details/5
+        // GET: UrPastworks/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(db.Tblpastworks.SingleOrDefault(i => i.Pastworkid == id));
         }
 
-        // GET: UrClientProfile/Create
+        // GET: UrPastworks/Create
         public ActionResult Create()
         {
+            ViewBag.Subcategoryid = new SelectList(db.Tblsubcategories.ToList(), "Subcategoryid", "Subcategoryname");
             return View();
         }
 
-        // POST: UrClientProfile/Create
+        // POST: UrPastworks/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Tblpastwork pw)
         {
-            try
+            ViewBag.Subcategoryid = new SelectList(db.Tblsubcategories.ToList(), "Subcategoryid", "Subcategoryname");
+            if (pw != null && pw.Description != null)
             {
-                // TODO: Add insert logic here
-
+                pw.Createddate = DateTime.Now;
+                pw.Status = 0;
+                pw.Eventmanagerid = Convert.ToInt32(Session["cid"]);
+                db.Tblpastworks.Add(pw);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                ViewBag.msg = "Please Fill All The Fields";
+                return View(pw);
             }
         }
 
-        // GET: UrClientProfile/Edit/5
+        // GET: UrPastworks/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: UrClientProfile/Edit/5
+        // POST: UrPastworks/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -72,13 +74,13 @@ namespace EventApp.Controllers
             }
         }
 
-        // GET: UrClientProfile/Delete/5
+        // GET: UrPastworks/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: UrClientProfile/Delete/5
+        // POST: UrPastworks/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
