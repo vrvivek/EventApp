@@ -1,0 +1,133 @@
+﻿@model EventApp.Models.Tblpastwork
+
+@{
+    ViewBag.Title = "Pastwork More Info";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<h4 class="col-md-12 col-sm-12 col-lg-12">Pastwork Details</h4>
+<hr class="col-md-12 col-sm-12 col-lg-12" />
+<div class="card col-md-12 col-sm-12 col-lg-12" style="margin:10px;padding:10px;">
+    <div class="row col-md-12 col-sm-12 col-lg-12" style="margin:0px;padding:0px;">
+        <div class="card col-md-12 col-lg-12" style="padding:0px;margin:0px;">
+            <div class="row col-md-12 col-lg-12" style="margin:0px;padding:0px;">
+                <div class="col-md-2 col-lg-2" style="margin:10px;padding:10px;">
+                    <center><img src="~/Content/Shared/Eventer_Image/@Html.DisplayFor(model => model.Tbleventmanager.Tbluser.Profilepic)" style="border-radius:50%;height:60px;width:60px;" /></center>
+                </div>
+                <div class="col-md-9 col-lg-9" style="margin-top:10px;padding:10px;">
+                    <div class="row col-md-12 col-lg-12" style="padding:0px;margin:0px;">
+                        <p class="col-md-4"> @Html.DisplayFor(model => model.Tbleventmanager.Name)</p>
+                        <p class="col-md-8"> @Model.Createddate.Day @Model.Createddate.ToString("MMMM") @Model.Createddate.Year</p>
+                        <p class="col-md-12"> @Html.DisplayFor(model => model.Tbleventmanager.Companyname)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card col-md-12 col-lg-12" style="padding-top:10px;margin-top:10px;">
+            <div class="row col-md-12 col-lg-12" style="margin:0px;padding:0px;">
+                <p class="col-md-6">@Html.DisplayFor(model => model.Tblsubcategory.Subcategoryname)</p>
+                <p class="col-md-4">@Html.DisplayFor(model => model.Tblsubcategory.Tblcategory.Categoryname)</p>
+                <a class="col-md-2">@Html.DisplayFor(model => model.Tblpastworklikes.Count)<i class="fa fa-heart"></i></a>
+                <p class="col-md-12">@Html.DisplayFor(model => model.Description)</p>
+            </div>
+        </div>
+        <div class="card col-md-12 col-lg-12" style="padding-top:10px;margin-top:10px;">
+            <section id="event-section" class="event-section clearfix col-md-12 col-lg-12">
+                <div class="container">
+                    <div class="mb-50">
+                        <div class="row">
+                            <!-- section-title - start -->
+                            <div class="col-lg-3 col-md-12 col-sm-12">
+                                @*<div class="section-title text-left">
+                                        <span class="line-style"></span>
+                                        <small class="sub-title"></small>
+                                        <h2 class="big-title"><strong>Profile</strong> Edit</h2>
+                                    </div>*@
+                            </div>
+                            <!-- section-title - end -->
+                            <!-- event-tab-menu - start -->
+                            <div class="col-lg-8 col-md-12 col-sm-12">
+                                <div class="event-tab-menu clearfix col-md-12">
+                                    <ul class="nav">
+                                        <li>
+                                            <a data-toggle="tab" href="#images" class="active">
+                                                <strong><i class="fas fa-images"></i>Images</strong>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#videos">
+                                                <strong><i class="fas fa-video"></i>Videos</strong>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#likes">
+                                                <strong><i class="fas fa-heart"></i>Likes</strong>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- event-tab-menu - end -->
+
+                        </div>
+                    </div>
+
+                    <!-- tab-content - start -->
+                    <div class="tab-content">
+
+                        <!-- conference-event - start -->
+                        <div id="images" class="tab-pane fade in active show">
+                            <div class="row">
+                                <!-- event-item - start -->
+                                @foreach (EventApp.Models.Tblpastworkimage i in Model.Tblpastworkimages)
+                                {
+                                    <div class="col-lg-4 col-md-4 col-sm-12" style="padding-bottom:10px;margin-bottom10px;">
+                                        <img src="~/Content/Shared/Pastwork/Pastwork_Image/@i.ImageURL" style="height:300px;width:300px;" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <!-- conference-event - end -->
+                        <!-- playground-event - start -->
+                        <div id="videos" class="tab-pane fade">
+                            <div class="row">
+                                <!-- event-item - start -->
+                                @foreach (EventApp.Models.Tblpastworkvideo i in Model.Tblpastworkvideos)
+                                {
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <video width="320" height="240" controls>
+                                            <source src="~/Content/Shared/Pastwork/Pastwork_Video/@i.VideoURL" type="video/mp4" />
+                                        </video>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div id="likes" class="tab-pane fade">
+                            <div class="row">
+                                <!-- event-item - start -->
+                                @foreach (EventApp.Models.Tblpastworklike i in Model.Tblpastworklikes)
+                                {
+                                    <div class="card col-md-12 col-lg-12" style="padding:0px;margin:0px;">
+                                        <div class="row col-md-12 col-lg-12" style="margin:0px;padding:0px;">
+                                            <div class="col-md-2 col-lg-2" style="margin:10px;padding:10px;">
+                                                <center><img src="~/Content/Shared/Client_Image/@i.Tblclient.Tbluser.Profilepic" style="border-radius:50%;height:60px;width:60px;" /></center>
+                                            </div>
+                                            <div class="col-md-9 col-lg-9" style="margin-top:10px;padding:10px;">
+                                                <div class="row col-md-12 col-lg-12" style="padding:0px;margin:0px;">
+                                                    <p class="col-md-4"> @i.Tblclient.Name</p>
+                                                    <p class="col-md-8"> @i.Createddate.Day @i.Createddate.ToString("MMMM") @i.Createddate.Year</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <!-- playground-event - end -->
+                    </div>
+                    <!-- tab-content - end -->
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>

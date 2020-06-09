@@ -5,79 +5,133 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
-<div id="absolute-eventmake-section" class="absolute-eventmake-section sec-ptb-100 bg-gray-light clearfix col-md-12 col-sm-12 col-lg-12" height="30%">
-    <div class="eventmaking-wrapper">
+<section id="event-section" class="event-section clearfix col-md-12 col-lg-12">
+    <div class="container">
 
-        <ul class="nav eventmake-tabs">
-            <li>
-                <a class="active show" data-toggle="tab" href="#changeprofile">
-                    Change Profile
-                </a>
-            </li>
-            <li>
-                <a data-toggle="tab" href="#changepassword" class="">
-                    Change Password
-                </a>
-            </li>
-        </ul>
+        <div class="mb-50">
+            <div class="row">
 
-        <div class="tab-content">
-            <div id="changeprofile" class="tab-pane fade in active show">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Tbluser.Username, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Tbluser.Username, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
-                        @Html.ValidationMessageFor(model => model.Tbluser.Username, "", new { @class = "text-danger" })
+                <!-- section-title - start -->
+                <div class="col-lg-3 col-md-12 col-sm-12">
+                    <div class="section-title text-left">
+                        <span class="line-style"></span>
+                        <small class="sub-title"></small>
+                        <h2 class="big-title"><strong>Profile</strong> Edit</h2>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Companyname, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Companyname, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Companyname, "", new { @class = "text-danger" })
+                <!-- section-title - end -->
+                <!-- event-tab-menu - start -->
+                <div class="col-lg-8 col-md-12 col-sm-12">
+                    <div class="event-tab-menu clearfix col-md-12">
+                        <ul class="nav">
+                            <li>
+                                <a data-toggle="tab" href="#conference-event" class="@ViewBag.tab1">
+                                    <strong><i class="fas fa-edit"></i>Change</strong> Details
+                                </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#playground-event" class="@ViewBag.tab2">
+                                    <strong><i class="fas fa-paste"></i>Change</strong> Password
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+                <!-- event-tab-menu - end -->
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.About, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.About, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.About, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Change Profile" name="btnsubmit" class="btn btn-primary" style="margin-top:10px" />
-                    </div>
-                </div>
-            </div>
-
-            <div id="changepassword" class="tab-pane fade">
-                <form action="#" class="col-md-12 col-sm-12 col-lg-12">
-                    Old password: <input type="password" name="oldpwd" class="form-control" />
-                    New password: <input type="password" name="newpwd" class="form-control" />
-                    Conform password:<input type="password" name="conpwd" class="form-control" />
-                    <input type="submit" value="Change Password" name="btnsubmit" class="btn btn-primary" style="margin-top:10px" />
-                </form>
             </div>
         </div>
+
+        <!-- tab-content - start -->
+        <div class="tab-content">
+
+            <!-- conference-event - start -->
+            <div id="conference-event" class="tab-pane fade @ViewBag.tab1">
+                <div class="container">
+                    <form method="post" action="UrEventManagerProfile/EditDetails" enctype="multipart/form-data">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Tbluser.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Tbluser.Username, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
+                                @Html.ValidationMessageFor(model => model.Tbluser.Username, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Companyname, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Companyname, new { htmlAttributes = new { @class = "form-control", @required = "" } })
+                                @Html.ValidationMessageFor(model => model.Companyname, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Website, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control", @required = "" } })
+                                @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Name", "Full Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @pattern = "[A-Za-z ].{5,25}" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.About, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.About, new { htmlAttributes = new { @class = "form-control", @required = "" } })
+                                @Html.ValidationMessageFor(model => model.About, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <img class="circle" src="~/Content/Shared/Eventer_Image/@Model.Coverpic" alt="Image Not Found" height="150px" width="250px"/>
+                            @Html.LabelFor(model => model.Coverpic, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Coverpic, new { htmlAttributes = new { @class = "form-control", @type = "file" ,@accept="Image/*"} })
+                                @Html.ValidationMessageFor(model => model.Coverpic, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12 @ViewBag.cls1">
+                                @ViewBag.msg
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Change Profile" name="btnsubmit" class="btn btn-primary" style="margin-top:10px" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- conference-event - end -->
+            <!-- playground-event - start -->
+            <div id="playground-event" class="tab-pane fade @ViewBag.tab2">
+                <div class="row">
+
+                    <!-- event-item - start -->
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="event-item clearfix">
+                            <form method="post" action="UrEventManagerProfile/ChangePassword" class="col-md-12 col-sm-12 col-lg-12">
+                                Old password: <input type="password" name="oldpwd" class="form-control" required />
+                                New password: <input type="password" name="password" class="form-control" required />
+                                Conform password:<input type="password" name="conpwd" class="form-control" required />
+                                <span class="col-md-12 @ViewBag.cls2 ">@ViewBag.msg1</span>
+                                <input type="submit" value="Change Password" name="btnsubmit" class="btn btn-primary" style="margin-top:10px" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- playground-event - end -->
+        </div>
+        <!-- tab-content - end -->
     </div>
-</div>
+</section>

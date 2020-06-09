@@ -1,6 +1,7 @@
 ﻿using EventApp.Models;
 using System;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace EventApp.Controllers
@@ -15,12 +16,6 @@ namespace EventApp.Controllers
                 return View(db.Tblusertenders.ToList());
             else
                 return RedirectToAction("Index", "UrLogin");
-        }
-
-        // GET: UrEvents/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
         }
 
         // GET: UrEvents/Create
@@ -58,26 +53,69 @@ namespace EventApp.Controllers
             }
         }
 
-        // GET: UrEvents/Edit/5
-        public ActionResult Edit(int id)
+        // GET: UrEvents/EventsInfo/5
+        public ActionResult EventsInfo(int id=0,int bidmsg=0)
         {
-            return View();
+            if (Session["uid"] != null)
+            {
+                ViewBag.cls = "";
+                if (bidmsg == 1)
+                {
+                    ViewBag.msg = "Please Fill All Fields.";
+                    ViewBag.cls = "danger";
+                }
+                if (bidmsg == 2)
+                {
+                    ViewBag.msg = "Please Fill All Fields.";
+                    ViewBag.cls = "success";
+                }
+                return View(db.Tblusertenders.SingleOrDefault(a => a.Usertenderid == id));
+            }
+            else
+                return RedirectToAction("Index", "UrLogin");
         }
 
-        // POST: UrEvents/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult AddUserEventBid(int id,Tblusertenderbid ubid, HttpPostedFileBase [] ImageURL)
         {
-            try
+            if (id != 0 && ubid.Price != 0 && ImageURL.Count() != 0)
             {
-                // TODO: Add update logic here
+                ubid.Createddate = DateTime.Now;
+                ubid.Is_selected = 0;
+                ubid.Eventmanagerid = Convert.ToInt32(Session["mid"]);
+                ubid.Usertenderid = id;
+                db.Tblusertenderbids.Add(ubid);
+                db.SaveChanges();
+                foreach (HttpPostedFileBase Image in ImageURL)
+                {
+                    var filename = System.IO.Path.GetFileName(Image.FileName);
+                    Random random = new Random();
+                    filename = random.Next(99, 99999) + "_Bid_" + filename;
+                    var path = System.IO.Path.Combine(Server.MapPath("~/Content/Shared/ClientEventBid_Image"), filename);
+                    Image.SaveAs(path);
+                    Tblusertenderbidimage utbi = new Tblusertenderbidimage();
+                    utbi.ImageURL = filename;
+                    utbi.Usertenderbidid = ubid.Usertenderbidid;
+                    db.Tblusertenderbidimages.Add(utbi);
+                    db.SaveChanges();
+                }
+                return RedirectToAction("EventsInfo" ,new { id,bidmsg=2});
+            }
+            else
+                return RedirectToAction("EventsInfo" ,new { id ,bidmsg=1});
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch
+        public string EditUserEventBid(int bid,int Price,string Description)
+        {
+            Tblusertenderbid b = db.Tblusertenderbids.SingleOrDefault(a=>a.Usertenderbidid==bid);
+            if (b != null && Session["mid"] != null && bid != 0 )
             {
-                return View();
+                b.Price = Price;
+                b.Description = Description;
+                db.SaveChanges();
+                return "true";
             }
+            else
+                return "false";
         }
 
         // GET: UrEvents/Delete/5

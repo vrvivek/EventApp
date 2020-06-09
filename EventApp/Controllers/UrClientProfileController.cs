@@ -11,87 +11,121 @@ namespace EventApp.Controllers
     {
         EventDB db = new EventDB();
         // GET: UrClientProfile
-        public ActionResult Index()
+        public ActionResult Index(int? ms=0)
         {
             if (Session["uid"] != null)
             {
                 int id = Convert.ToInt32(Session["cid"]);
+                ViewBag.tab1 = "active show";
+                ViewBag.tab2 = "";
+                ViewBag.cls = "";
+                if (ms == 1)
+                {
+                    ViewBag.cls1 = "btn btn-success";
+                    ViewBag.msg = "Details Change Success";
+                }
+                if (ms == 2)
+                {
+                    ViewBag.tab1 = "";
+                    ViewBag.tab2 = "active show";
+                    ViewBag.cls2 = "btn btn-danger";
+                    ViewBag.msg1 = "Old Password Not Match";
+                }
+                if (ms == 3)
+                {
+                    ViewBag.tab1 = "";
+                    ViewBag.tab2 = "active show";
+                    ViewBag.cls2 = "btn btn-success";
+                    ViewBag.msg1 = "Password Change Success";
+                }
+                if (ms == 4)
+                {
+                    ViewBag.tab1 = "";
+                    ViewBag.tab2 = "active show";
+                    ViewBag.cls2 = "btn btn-danger";
+                    ViewBag.msg1 = "Password & Conform Password Not Match";
+                }
                 return View(db.Tblclients.SingleOrDefault(c => c.Clientid == id));
             }
             else
                 return RedirectToAction("Index", "UrLogin");
         }
 
-        // GET: UrClientProfile/Details/5
-        public ActionResult Details(int id)
+        public ActionResult MyEvents()
         {
-            return View();
+            if (Session["uid"] != null && Session["cid"]!=null)
+            {
+                int id = Convert.ToInt32(Session["cid"]);
+                return View(db.Tblusertenders.Where(a=>a.Clientid==id).ToList()) ;
+            }
+            else
+                return RedirectToAction("Index", "UrLogin");
         }
 
-        // GET: UrClientProfile/Create
-        public ActionResult Create()
+        // GET: UrClientProfile/MyEventsDetails/5
+        public ActionResult MyEventsDetails(int? id)
         {
-            return View();
+            if (Session["uid"] != null && Session["cid"] != null)
+            {
+                ViewBag.Cityid = new SelectList(db.Tblcities.ToList(), "Cityid", "Cityname");
+                ViewBag.Subcategoryid = new SelectList(db.Tblsubcategories.ToList(), "Subcategoryid", "Subcategoryname");
+                return View(db.Tblusertenders.SingleOrDefault(a => a.Usertenderid == id));
+            }
+            else
+                return RedirectToAction("Index", "UrLogin");
         }
 
-        // POST: UrClientProfile/Create
+        public string EditUserEvent(int tid,int Price,string Description,DateTime enddate)
+        {
+            return "true ";
+        }
+
+        // POST: UrClientProfile/EditDetails 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult EditDetails(Tblclient c)
         {
-            try
+            if (Session["cid"] != null)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                int id = Convert.ToInt32(Session["cid"]);
+                Tblclient c1 = db.Tblclients.SingleOrDefault(a => a.Clientid == id);
+                c1.Address = c.Address;
+                c1.Gender = c.Gender;
+                c1.Zip = c.Zip;
+                c1.Name = c.Name;
+                c1.Dateofbirth = c.Dateofbirth;
+                db.SaveChanges();
+                return RedirectToAction("Index",new {ms = 1} );
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return RedirectToAction("Index", "UrLogin");
         }
 
-        // GET: UrClientProfile/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: UrClientProfile/Edit/5
+        // POST: UrClientProfile/ChangePassword
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult ChangePassword(string oldpwd,string password,string conpwd)
         {
-            try
+            if (Session["cid"] != null)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                int id = Convert.ToInt32(Session["cid"]);
+                Tblclient c1 = db.Tblclients.SingleOrDefault(a => a.Clientid == id);
+                Tbluser ur = db.Tblusers.SingleOrDefault(a=>a.Userid==c1.Userid);
+                if(ur.Password == oldpwd)
+                {
+                    if (password == conpwd)
+                    {
+                        ur.Password = password;
+                        db.SaveChanges();
+                        return RedirectToAction("Index", new { ms = 3 });
+                    }
+                    else
+                        return RedirectToAction("Index",new { ms = 4 });
+                }
+                else
+                    return RedirectToAction("Index", new { ms = 2 });
             }
-            catch
-            {
-                return View();
-            }
+            else
+                return RedirectToAction("Index", "UrLogin");
         }
 
-        // GET: UrClientProfile/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: UrClientProfile/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

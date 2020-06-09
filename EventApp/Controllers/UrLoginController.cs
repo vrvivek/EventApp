@@ -3,22 +3,35 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace EventApp.Controllers
 {
     public class UrLoginController : Controller
     {
         EventDB db = new EventDB();
+        
+        
         // GET: UrLogin
         public ActionResult Index(int? Usertype,string username="",string password="")
         {
+            
+            if (Session["uid"] != null)
+            {
+                return RedirectToAction("Index", "UrEvents");
+            }
             if (Usertype != null && username != "" && password != "")
             {
                 Tbluser ur = db.Tblusers.SingleOrDefault(a => a.Username == username && a.Password == password && a.Usertype == Usertype);
                 if (ur != null)
                 {
+                    //sendemail(ur.Email,ur.Username);
+                    //sendmessage();
                     Session["uid"] = ur.Userid;
                     Session["uname"] = ur.Username;
                     Session["utype"] = ur.Usertype;
@@ -48,6 +61,50 @@ namespace EventApp.Controllers
                 ViewBag.msg = "";
             }
             return View();
+        }
+
+        private void sendmessage()
+        {
+            const string accountSid = "AC878f8a350d44c83027a6ae6b4eaad8e1";
+            const string authToken = "068c2172bdfee994df9743fdcebfb5e2";
+            TwilioClient.Init(accountSid, authToken);
+            var message = MessageResource.Create(
+                body: "Your Account Log in Now ."+DateTime.Now.ToString(),
+                from: new Twilio.Types.PhoneNumber("+13024552847"),
+                to: new Twilio.Types.PhoneNumber("+918200652502")
+            );
+            
+            Console.WriteLine(message.Status+" "+message.Sid);
+        }
+
+        private void sendemail(string remail,string rname)
+        {
+            if (ModelState.IsValid)
+            {
+                var senderEmail = new MailAddress("interiordecorvkh@gmail.com", "Eventively",System.Text.Encoding.UTF8);
+                var receiverEmail = new MailAddress(remail, rname);
+                var password = "interior123";
+                var sub = "Sign In To Eventively";
+                var body = "<h1>You Just <b><u>" + DateTime.Now.ToString() + "</u></b> Sign In To Our System.</h1>";
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                };
+                using (var mess = new MailMessage(senderEmail, receiverEmail)
+                {
+                    Subject = sub,
+                    Body = body,
+                    IsBodyHtml= true
+                })
+                {
+                    smtp.Send(mess);
+                }
+            }
         }
 
         //GET: UrLogin/Register

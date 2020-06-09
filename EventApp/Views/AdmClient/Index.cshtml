@@ -48,7 +48,15 @@
                     @Html.DisplayFor(modelItem => item.Zip)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Gender)
+                    @if(item.Gender==0)
+                    {
+                        <p>Male</p>
+                    }
+                    else
+                    {
+                        <p>Female</p>
+                    }
+
                 </td>
                 <td>
                     @if (item.Tbluser.Status == 0)

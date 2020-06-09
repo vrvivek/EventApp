@@ -1,71 +1,37 @@
 ﻿@model EventApp.Models.Tbleventmanager
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Eventmanager More Info";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>Tbleventmanager</h4>
+    <h4>Eventmanager Details</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Tbluser.Username)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tbluser.Username)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Companyname)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Companyname)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Website)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Website)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.About)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.About)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Coverpic)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Coverpic)
-        </dd>
-
-    </dl>
-    @foreach(EventApp.Models.Tblpastwork i in Model.Tblpastworks)
-    {
-        @i.Description.ToString()
-    }
+    <div class="card col-md-12 col-sm-12 col-lg-12">
+        <div class="col-md-12"> Name:  @Html.DisplayFor(model => model.Name)</div>
+        <div class="col-md-12"> Company Name:  @Html.DisplayFor(model => model.Companyname)</div>
+        <div class="col-md-12"> Website:  @Html.DisplayFor(model => model.Website)</div>
+        <div class="col-md-12"> About:  @Html.DisplayFor(model => model.About)</div>
+        <div class="col-md-12"> Coverpic:  @Html.DisplayFor(model => model.Coverpic)</div>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Eventmanagerid }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Eventmanagerid }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<h4>Pastworks</h4>
+<hr />
+@foreach (EventApp.Models.Tblpastwork i in Model.Tblpastworks)
+{
+    <div class="card" style="margin:10px;padding:10px;">
+        <div class="row col-md-12">
+
+            <div class="col-md-12">Description: @i.Description</div>
+            <div class="col-md-12">Subcategory: @i.Tblsubcategory.Subcategoryname</div>
+            <div class="col-md-12">Createddate: @i.Createddate</div>
+
+        </div>
+    </div>
+}

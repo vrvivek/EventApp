@@ -138,7 +138,7 @@
                     <div class="col-lg-3">
                         <div class="site-logo-wrapper">
                             <a href="index-1.html" class="logo">
-                                <img src="~/Content/User/assets/images/0.site-logo.png" alt="logo_not_found">
+                                <img src="~/Content/User/assets/images/site-logo.png" alt="logo_not_found">
                             </a>
                         </div>
                     </div>
@@ -167,9 +167,25 @@
                                                 </a>
                                                 <ul class="sub-menu">
                                                     <li class="menu-item-has-children">
-                                                        <a href='event-1.html'>Profile</a>
+                                                        @if (Session["mid"] != null)
+                                                        {
+                                                            <a href="@Url.Action("Index","UrEventManagerProfile",null)">Profile</a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="@Url.Action("Index","UrClientProfile",null)">Profile</a>
+                                                        }
                                                     </li>
-                                                    <li><a href='event-details.html'>event details</a></li>
+                                                    @if (Session["mid"] != null)
+                                                    {
+                                                        <li><a href="@Url.Action("Index","UrPastworks",null)">Pastworks</a></li>
+                                                        <li><a href="@Url.Action("MyEvents","UrEventManagerProfile",null)">Your Events</a></li>
+                                                    }
+                                                    @if (Session["cid"] != null)
+                                                    {
+                                                        <li><a href="@Url.Action("MyEvents","UrClientProfile",null)">Your Events</a></li>
+                                                        <li><a href="@Url.Action("Create","UrEvents",null)">Create Event</a></li>
+                                                    }
                                                 </ul>
                                             </li>
                                         </ul>
@@ -325,7 +341,7 @@
     <footer id="footer-section" class="footer-section default-footer-section clearfix">
 
         <!-- footer-top - start -->
-        <div class="footer-top sec-ptb-100 clearfix">
+        <div class="footer-top clearfix" style="padding-top:10px !important">
             <div class="container">
                 <div class="row">
 
@@ -379,7 +395,7 @@
                     </div>
                     <!-- basic-info - end -->
                     <!-- about-wrapper - start -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    @*<div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="about-wrapper">
 
                             <!-- site-logo-wrapper - start -->
@@ -394,34 +410,11 @@
                                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna.
                             </p>
 
-                            <!-- social-links - start -->
-                            <div class="social-links ul-li">
-                                @*<h3 class="social-title">network</h3>
-                                <ul>
-                                    <li>
-                                        <a href="#!"><i class="fab fa-facebook-f"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="fab fa-twitter"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="fab fa-twitch"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="fab fa-google-plus-g"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#!"><i class="fab fa-instagram"></i></a>
-                                    </li>
-                                </ul>*@
-                            </div>
-                            <!-- social-links - end -->
-
                         </div>
-                    </div>
+                    </div>*@
                     <!-- about-wrapper - end -->
                     <!-- usefullinks-wrapper - start -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    @*<div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="usefullinks-wrapper ul-li-block">
                             <h3 class="footer-item-title">
                                 useful <strong>links</strong>
@@ -436,10 +429,10 @@
                             </ul>
 
                         </div>
-                    </div>
+                    </div>*@
                     <!-- usefullinks-wrapper - end -->
                     <!-- usefullinks-wrapper - start -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    @*<div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="usefullinks-wrapper ul-li-block">
                             <h3 class="footer-item-title">
                                 useful <strong>links</strong>
@@ -454,10 +447,10 @@
                             </ul>
 
                         </div>
-                    </div>
+                    </div>*@
                     <!-- usefullinks-wrapper - end -->
                     <!-- instagram-wrapper - start -->
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    @*<div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="instagram-wrapper ul-li">
                             <h3 class="footer-item-title">
                                 Eventively <strong>instagram</strong>
@@ -484,7 +477,7 @@
                                 Follow Our Instagram <a href="#!">#Eventively</a>
                             </h4>
                         </div>
-                    </div>
+                    </div>*@
                     <!-- instagram-wrapper - end -->
 
                 </div>

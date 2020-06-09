@@ -1,90 +1,38 @@
 ﻿@model EventApp.Models.Tblmanagertender
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Managertender More Info";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>Tblmanagertender</h4>
+    <h4>Managertender Details</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Tblcity.Cityname)
-        </dt>
+    <div class="card col-md-12 col-sm-12 col-lg-12">
+        <div class="col-md-12"> Name:  @Html.DisplayFor(model => model.Tbleventmanager.Name)</div>
+        <div class="col-md-12"> Subcategory:  @Html.DisplayFor(model => model.Tblsubcategory.Subcategoryname)</div>
+        <div class="col-md-12"> Description:  @Html.DisplayFor(model => model.Description)</div>
+        <div class="col-md-12"> Price:  @Html.DisplayFor(model => model.Price)</div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Tblcity.Cityname)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Tbleventmanager.Companyname)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tbleventmanager.Companyname)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Tblsubcategory.Subcategoryname)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tblsubcategory.Subcategoryname)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Startingdate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Startingdate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Endingdate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Endingdate)
-        </dd>
-
-    </dl>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Managertenderid }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>
-<div>
-    @foreach (EventApp.Models.Tblmanagertenderbid i in Model.Tblmanagertenderbids)
-    {
-        @i.Description.ToString()
-        @i.Price.ToString()
-    }
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Managertenderid }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<h4>Tender bids</h4>
+<hr />
+@foreach (EventApp.Models.Tblmanagertenderbid i in Model.Tblmanagertenderbids)
+{
+    <div class="card" style="margin:10px;padding:10px;">
+        <div class="row col-md-12">
+
+            <div class="col-md-12">Description: @i.Description</div>
+            <div class="col-md-12">Eventmanager: @i.Tbleventmanager.Name</div>
+            <div class="col-md-12">Price: @i.Price</div>
+            <div class="col-md-12">Createddate: @i.Createddate</div>
+
+        </div>
+    </div>
+}

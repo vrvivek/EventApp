@@ -1,339 +1,82 @@
 ﻿@model IEnumerable<EventApp.Models.Tblusertender>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Events";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 <section id="event-section" class="event-section bg-gray-light clearfix">
     <div class="row justify-content-center container">
-        <div id="list-style" class="tab-pane fade in active show row">
-
-            <div class="event-list-item clearfix col-md-12">
-                <!-- event-image - start -->
-                <div class="event-image">
-                    <div class="post-date">
-                        <span class="date">18</span>
-                        <small class="month">June</small>
-                    </div>
-                    <img src='~/Content/User/assets/images/event/event-1.jpg' alt="Image_not_found">
-                </div>
-                <!-- event-image - end -->
-                <!-- event-content - start -->
-                <div class="event-content">
-                    <div class="event-title mb-15">
-                        <h3 class="title">
-                            herish <strong>&nbsp;</strong>
-                        </h3>
-                        <span class="ticket-price yellow-color">Birthday Parties</span>
-                        <br />
-                        <span class="ticket-price yellow-color">At Surat , Gujarat</span>
-                    </div>
-                    <p class="discription-text mb-30">
-                        Party was arrange to my home
-                    </p>
-                    <div class="event-info-list ul-li clearfix">
-                        <ul>
-                            <li>
-                                <span class="icon">
-                                    <i class="fas fa-microphone"></i>
-                                </span>
-                                <div class="info-content">
-                                    <small>&nbsp;</small>
-                                    <h3>&nbsp;</h3>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="icon">
-                                    <i class="fas fa-ticket-alt"></i>
-                                </span>
-                                <div class="info-content">
-                                    <small>Package Amount</small>
-                                    <h3>4500</h3>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#!" class="tickets-details-btn"></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- event-content - end -->
-            </div>
-            <div class="event-list-item clearfix col-md-12">
-                <!-- event-image - start -->
-                <div class="event-image">
-                    <div class="post-date">
-                        <span class="date">20</span>
-                        <small class="month">June</small>
-                    </div>
-                    <img src='~/Content/User/assets/images/event/event-6.jpg' alt="Image_not_found">
-                </div>
-                <!-- event-image - end -->
-                <!-- event-content - start -->
-                <div class="event-content">
-                    <div class="event-title mb-15">
-                        <h3 class="title">
-                            Kush <strong>&nbsp;</strong>
-                        </h3>
-                        <span class="ticket-price yellow-color">Business Seminars</span>
-                        <br />
-                        <span class="ticket-price yellow-color">At Bardoli , Gujarat</span>
-                    </div>
-                    <p class="discription-text mb-30">
-                        Seminar is going to place at my company hall
-                    </p>
-                    <div class="event-info-list ul-li clearfix">
-                        <ul>
-                            <li>
-                                <span class="icon">
-                                    <i class="fas fa-microphone"></i>
-                                </span>
-                                <div class="info-content">
-                                    <small>&nbsp;</small>
-                                    <h3>&nbsp;</h3>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="icon">
-                                    <i class="fas fa-ticket-alt"></i>
-                                </span>
-                                <div class="info-content">
-                                    <small>Package Amount</small>
-                                    <h3>10500</h3>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#!" class="tickets-details-btn"></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- event-content - end -->
-            </div>
-            <div class="event-list-item clearfix col-md-12">
-                <!-- event-image - start -->
-                <div class="event-image">
-                    <div class="post-date">
-                        <span class="date">25</span>
-                        <small class="month">June</small>
-                    </div>
-                    <img src='~/Content/User/assets/images/event/event-4.jpg' alt="Image_not_found">
-                </div>
-                <!-- event-image - end -->
-                <!-- event-content - start -->
-                <div class="event-content">
-                    <div class="event-title mb-15">
-                        <h3 class="title">
-                            rushi <strong>&nbsp;</strong>
-                        </h3>
-                        <span class="ticket-price yellow-color">Dance Parties</span>
-                        <br />
-                        <span class="ticket-price yellow-color">At Surat , Gujarat</span>
-                    </div>
-                    <p class="discription-text mb-30">
-                        Party was arrange to Parties Ground
-                    </p>
-                    <div class="event-info-list ul-li clearfix">
-                        <ul>
-                            <li>
-                                <span class="icon">
-                                    <i class="fas fa-microphone"></i>
-                                </span>
-                                <div class="info-content">
-                                    <small>&nbsp;</small>
-                                    <h3>&nbsp;</h3>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="icon">
-                                    <i class="fas fa-ticket-alt"></i>
-                                </span>
-                                <div class="info-content">
-                                    <small>Package Amount</small>
-                                    <h3>14500</h3>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#!" class="tickets-details-btn"></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- event-content - end -->
-            </div>
-            <div class="event-list-item clearfix col-md-12">
-                <!-- event-image - start -->
-                <div class="event-image">
-                    <div class="post-date">
-                        <span class="date">18</span>
-                        <small class="month">June</small>
-                    </div>
-                    <img src='~/Content/User/assets/images/event/event-5.jpg' alt="Image_not_found">
-                </div>
-                <!-- event-image - end -->
-                <!-- event-content - start -->
-                <div class="event-content">
-                    <div class="event-title mb-15">
-                        <h3 class="title">
-                            Jay <strong>&nbsp;</strong>
-                        </h3>
-                        <span class="ticket-price yellow-color">Birthday Parties</span>
-                        <br />
-                        <span class="ticket-price yellow-color">At At Surat , Gujarat</span>
-                    </div>
-                    <p class="discription-text mb-30">
-                        Party was arrange to my home
-                    </p>
-                    <div class="event-info-list ul-li clearfix">
-                        <ul>
-                            <li>
-                                <span class="icon">
-                                    <i class="fas fa-microphone"></i>
-                                </span>
-                                <div class="info-content">
-                                    <small>&nbsp;</small>
-                                    <h3>&nbsp;</h3>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="icon">
-                                    <i class="fas fa-ticket-alt"></i>
-                                </span>
-                                <div class="info-content">
-                                    <small>Package Amount</small>
-                                    <h3>4500</h3>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#!" class="tickets-details-btn"></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- event-content - end -->
-            </div>
+        <div id="list-style" class="tab-pane fade in active show row container">
             <!-- event-grid-item - start -->
             @foreach (var item in Model)
             {
-                <div class="event-list-item clearfix col-md-12">
+                if (item.Endingdate.Date > DateTime.Now.Date) 
+                {
+                    <div class="event-list-item clearfix col-md-6">
 
-                    <!-- event-image - start -->
-                    <div class="event-image">
-                        <div class="post-date">
-                            <span class="date">18@*@item.Endingdate.Date*@</span>
-                            <small class="month">June@*@item.Endingdate.Month*@</small>
+                        <!-- event-image - start -->
+                        <div class="event-image">
+                            <div class="post-date">
+                                <span class="date">@item.Endingdate.Day</span>
+                                <small class="month">@item.Endingdate.ToString("MMMM")</small>
+                            </div>
+                            <img src='~/Content/Shared/Client_Image/@item.Tblclient.Tbluser.Profilepic' alt="Image_not_found">
                         </div>
-                        <img src='~/Content/User/assets/images/event/event-6.jpg' alt="Image_not_found">
+                        <!-- event-image - end -->
+                        <!-- event-content - start -->
+                        <div class="event-content">
+                            <div class="event-title mb-15">
+                                <h3 class="title">
+                                    @item.Tblclient.Tbluser.Username <strong>&nbsp;</strong>
+                                </h3>
+                                <span class="ticket-price yellow-color">@item.Tblsubcategory.Subcategoryname  @item.Tblsubcategory.Tblcategory.Categoryname</span>
+                                <br />
+                                <span class="ticket-price yellow-color">At @item.Tblcity.Cityname , @item.Tblcity.Tblstate.Statename</span>
+                            </div>
+                            <p class="discription-text mb-30">
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </p>
+                            <div class="event-info-list ul-li clearfix">
+                                <ul>
+                                    <li>
+                                        @*<span class="icon">
+                                            <i class="fas fa-microphone"></i>
+                                        </span>
+                                        <div class="info-content">
+                                            <small>&nbsp;</small>
+                                            <h3>&nbsp;</h3>
+                                        </div>*@
+                                    </li>
+                                    <li>
+                                        <span class="icon">
+                                            <i class="fas fa-ticket-alt"></i>
+                                        </span>
+                                        <div class="info-content">
+                                            <small>Package Amount</small>
+                                            <h3>@item.Price</h3>
+                                        </div>
+                                    </li>
+                                    @if (Session["mid"] != null)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("EventsInfo","UrEvents",null)?id=@item.Usertenderid" class="btn btn-danger tickets-details-btn">Bid To This Event</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("EventsInfo","UrEvents",null)?id=@item.Usertenderid" class="tickets-details-btn">More Details</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- event-content - end -->
                     </div>
-                    <!-- event-image - end -->
-                    <!-- event-content - start -->
-                    <div class="event-content">
-                        <div class="event-title mb-15">
-                            <h3 class="title">
-                                @item.Tblclient.Tbluser.Username <strong>&nbsp;</strong>
-                            </h3>
-                            <span class="ticket-price yellow-color">@item.Tblsubcategory.Subcategoryname  @item.Tblsubcategory.Tblcategory.Categoryname</span>
-                            <br />
-                            <span class="ticket-price yellow-color">At @item.Tblcity.Cityname , @item.Tblcity.Tblstate.Statename</span>
-                        </div>
-                        <p class="discription-text mb-30">
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </p>
-                        <div class="event-info-list ul-li clearfix">
-                            <ul>
-                                <li>
-                                    <span class="icon">
-                                        <i class="fas fa-microphone"></i>
-                                    </span>
-                                    <div class="info-content">
-                                        <small>&nbsp;</small>
-                                        <h3>&nbsp;</h3>
-                                    </div>
-                                </li>
-                                <li>
-                                    <span class="icon">
-                                        <i class="fas fa-ticket-alt"></i>
-                                    </span>
-                                    <div class="info-content">
-                                        <small>Package Amount</small>
-                                        <h3>@item.Price</h3>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="#!" class="tickets-details-btn"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- event-content - end -->
-                </div>
+                }
             }
         </div>
         <!-- event-grid-item - end -->
     </div>
 </section>
 
-
-@*<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Tblcity.Cityname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tblclient.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tblsubcategory.Subcategoryname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Startingdate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Endingdate)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tblcity.Cityname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tblclient.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tblsubcategory.Subcategoryname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Startingdate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Endingdate)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Usertenderid })
-                </td>
-                </tr>
-                }
-
-                </table>*@

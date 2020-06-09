@@ -22,7 +22,24 @@ namespace EventApp.Controllers
         // GET: UrEventManagers/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            if (Session["uid"] != null)
+            {
+                var tenbid = db.Tblusertenderbids.Where(a => a.Eventmanagerid == id && a.Is_selected == 1);
+                List<Tblusertender> tender = (List<Tblusertender>)from b in tenbid join t in db.Tblusertenders on b.Usertenderid equals t.Usertenderid where t.Status == 2 select t;
+                ViewBag.ctender = tender.ToList();
+                return View(db.Tbleventmanagers.SingleOrDefault(e => e.Eventmanagerid == id));
+            }
+            else
+                return RedirectToAction("Index", "UrLogin");
+        }
+
+        // GET: UrEventManagers/PastworkDetails/5
+        public ActionResult PastworkDetails(int id)
+        {
+            if(Session["uid"]!=null)
+               return View(db.Tblpastworks.SingleOrDefault(p => p.Pastworkid == id));
+            else
+                return RedirectToAction("Index", "UrLogin");
         }
 
         // GET: UrEventManagers/Create

@@ -1,0 +1,254 @@
+﻿@model EventApp.Models.Tbleventmanager
+
+@{
+    ViewBag.Title = "Eventmanager More Info";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<h4 class="col-md-12">Eventmanager Detail</h4>
+<hr class="col-md-12" />
+<section id="event-section" class="event-section bg-gray-light clearfix" style="padding:30px;margin:20px;">
+    <div class="row justify-content-center">
+        <div id="grid-style" class="tab-pane fade in active show">
+            <div class="row justify-content-center">
+                <!-- event-grid-item - start -->
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="event-grid-item">
+                        <!-- event-image - start -->
+                        <div class="event-image">
+                            @*<div class="post-date">
+                                    <span class="date">10</span>
+                                    <small class="month">june</small>
+                                </div>*@
+                            @*<img src="@item.Coverpic" />*@
+                            <img src="~/Content/Shared/Eventer_Image/@Html.DisplayFor(model => model.Coverpic)" alt="Image_not_found" style="width:100%;height:100%;">
+                        </div>
+                        <!-- event-image - end -->
+                        <!-- event-content - start -->
+                        <div class="event-content">
+                            <div class="event-title mb-30">
+                                <h3 class="title">
+                                    @Html.DisplayFor(model => model.Name)
+                                </h3>
+                                <span class="ticket-price yellow-color"> </span>
+                            </div>
+                            <div class="event-post-meta ul-li-block mb-30">
+                                <ul>
+                                    <li>
+                                        <span class="icon">
+                                            <i class="far fa-calendar"></i>
+                                        </span>
+                                        @Model.Tbluser.Registrationdate.Day @Model.Tbluser.Registrationdate.ToString("MMMM") @Model.Tbluser.Registrationdate.Year
+                                    </li>
+                                    <li>
+                                        <span class="icon">
+                                            <i class="fa fa-building"></i>
+                                        </span>
+                                        @Html.DisplayFor(model => model.Companyname)
+                                    </li>
+                                    <li class="col-md-12">
+                                        <span class="icon">
+                                            <i class="fa fa-info-circle"></i>
+                                        </span>
+                                        @Html.DisplayFor(model => model.About)
+                                    <li class="col-md-12">
+                                        <span class="icon">
+                                            <i class="fa fa-globe"></i>
+                                        </span>
+                                        @Html.DisplayFor(model => model.Website)
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- event-content - end -->
+                    </div>
+                </div>
+
+                <!-- event-grid-item - end -->
+            </div>
+        </div>
+    </div>
+</section>
+<div class="card col-md-12 col-lg-12" style="padding-top:10px;margin-top:10px;">
+    <section id="event-section" class="event-section clearfix col-md-12 col-lg-12">
+        <div class="container">
+            <div class="mb-50">
+                <div class="row">
+                    <!-- section-title - start -->
+                    <div class="col-lg-3 col-md-12 col-sm-12">
+                        @*<div class="section-title text-left">
+                                <span class="line-style"></span>
+                                <small class="sub-title"></small>
+                                <h2 class="big-title"><strong>Profile</strong> Edit</h2>
+                            </div>*@
+                    </div>
+                    <!-- section-title - end -->
+                    <!-- event-tab-menu - start -->
+                    <div class="col-lg-8 col-md-12 col-sm-12">
+                        <div class="event-tab-menu clearfix col-md-12">
+                            <ul class="nav">
+                                <li>
+                                    <a data-toggle="tab" href="#pastworks" class="active">
+                                        <strong><i class="fas fa-images"></i>Pastwork</strong>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#reviews">
+                                        <strong><i class="fas fa-video"></i>Review</strong>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#completetenders">
+                                        <strong><i class="fas fa-heart"></i>Complete Tender</strong>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- event-tab-menu - end -->
+
+                </div>
+            </div>
+
+            <!-- tab-content - start -->
+            <div class="tab-content">
+
+                <!-- conference-event - start -->
+                <div id="pastworks" class="tab-pane fade in active show">
+                    <div class="row col-md-12 col-sm-12 col-lg-12">
+                        <!-- event-item - start -->
+                        @foreach (EventApp.Models.Tblpastwork i in Model.Tblpastworks)
+                        {
+                        
+                            <div class="card row col-md-12 col-lg-12" style="margin:0px;padding:0px;">
+                                <div class="col-md-2 col-lg-2" style="margin:5px;padding:5px;">
+                                    <center><img src="~/Content/Shared/Eventer_Image/@i.Tbleventmanager.Tbluser.Profilepic" style="border-radius:50%;height:60px;width:60px;" /></center>
+                                </div>
+                                <div class="col-md-9 col-lg-9" style="margin-top:5px;padding:5px;">
+                                    <div class="row col-md-12 col-lg-12" style="padding:0px;margin:0px;">
+                                        <p class="col-md-4">@i.Tbleventmanager.Name</p>
+                                        <p class="col-md-8">@i.Createddate.Day @i.Createddate.ToString("MMMM") @i.Createddate.Year</p>
+                                        <p class="col-md-12">@i.Tbleventmanager.Companyname</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card col-md-12 col-sm-12 col-lg-12" style="margin-bottom:5px;padding-bottom:5px;">
+                                <div class="row col-md-12 col-lg-12" style="padding:10px;margin:10px;">
+                                    <p class="col-md-4">@i.Tblsubcategory.Subcategoryname</p>
+                                    <p class="col-md-4">@i.Tblsubcategory.Tblcategory.Categoryname</p>
+                                    <a class="col-md-4">@i.Tblpastworklikes.Count<i class="fa fa-heart"></i></a>
+                                    <div class="col-md-8">@i.Description</div>
+                                    <div class="col-md-4">
+                                        @Html.ActionLink("More Details", "PastworkDetails", new { id = i.Pastworkid })
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        }
+                    </div>
+                </div>
+                <!-- conference-event - end -->
+                <!-- playground-event - start -->
+                <div id="reviews" class="tab-pane fade">
+                    <div class="row col-md-12 col-lg-12 col-sm-12">
+                        <!-- event-item - start -->
+                        @if (Session["cid"] != null)
+                        {
+                            <!-- Bid-Edit-form - start -->
+                            <div class="comment-form clearfix col-md-6" id="bideditform">
+
+                                <div class="section-title text-left mb-50">
+                                    <h2 class="big-title">Create <strong>Review</strong></h2>
+                                </div>
+
+                                <div class="form-wrapper">
+                                    <form action="#" method="post">
+                                        <div class="row">
+
+                                            <!-- form-item - start -->
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="form-item mb-30">
+                                                    <input type="text" name="Review" id="Review" placeholder="Review" required />
+                                                </div>
+                                            </div>
+                                            <!-- form-item - end -->
+                                            <!-- form-item - start -->
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="form-item mb-30">
+                                                    <input type="text" name="Rating" id="Rating" placeholder="Rating" required />
+                                                </div>
+                                                <button type="submit" class="custom-btn mb-30">Create</button>
+                                            </div>
+                                            <!-- form-item - end -->
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <!-- Bid-Edit-form - end -->
+                        }
+                        @foreach (EventApp.Models.Tblreview i in Model.Tblreviews)
+                        {
+                            <div class="card col-md-12 col-lg-12" style="padding:0px;margin:0px;">
+                                <div class="row col-md-12 col-lg-12" style="margin:0px;padding:0px;">
+                                    <div class="col-md-2 col-lg-2" style="margin:10px;padding:10px;">
+                                        <center><img src="~/Content/Shared/Client_Image/@i.Tblclient.Tbluser.Profilepic" style="border-radius:50%;height:60px;width:60px;" /></center>
+                                    </div>
+                                    <div class="col-md-9 col-lg-9" style="margin-top:10px;padding:10px;">
+                                        <div class="row col-md-12 col-lg-12" style="padding:0px;margin:0px;">
+                                            <p class="col-md-4"> @i.Tblclient.Name</p>
+                                            <p class="col-md-8"> @i.Createddate.Day @i.Createddate.ToString("MMMM") @i.Createddate.Year</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" style="margin-top:10px;padding:10px;">
+                                        <p>@i.Review</p>
+                                    </div>
+                                    <div class="col-md-12" style="margin-top:10px;padding:10px;">
+                                        <p>@i.Rating</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div id="completetender" class="tab-pane fade">
+                    <div class="row">
+                        <!-- event-item - start -->
+                        @foreach (EventApp.Models.Tblusertender i in ViewBag.ctender)
+                        {
+                            <div class="card col-md-12 col-lg-12 col-sm-12">
+                                <div class="row col-md-12 col-sm-12 col-lg-12">
+                                    <div class="col-md-2 col-lg-2" style="margin:10px;padding:10px;">
+                                        <img src="~/Content/Shared/Client_Image/@i.Tblclient.Tbluser.Profilepic" />
+                                    </div>
+                                    <div class="col-md-9 col-sm-12 col-lg-9" style="margin:10px;padding:10px;">
+                                        <div class="row col-md-12 col-lg-8 col-sm-12" style="margin:10px;padding:10px;">
+                                            <p class="col-md-4">@i.Tblclient.Name</p>
+                                            <p class="col-md-8">@i.Endingdate.Day @i.Endingdate.ToString("MMMM") @i.Endingdate.Year</p>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-lg-8" style="margin:10px;padding:10px;">
+                                            <p class="col-md-4">@i.Tblsubcategory.Subcategoryname</p>
+                                            <p class="col-md-4">@i.Tblsubcategory.Tblcategory.Categoryname</p>
+                                            <p class="col-md-4">@i.Price</p>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 col-lg-8" style="margin:10px;padding:10px;">
+                                            At<p class="col-md-4">@i.Tblcity.Cityname</p>
+                                            <p class="col-md-4">@i.Tblcity.Tblstate.Statename</p>
+                                            <a href="" class="col-md-4"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-lg-8" style="padding:10px;margin:10px;">
+                                        <p>description</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <!-- playground-event - end -->
+            </div>
+            <!-- tab-content - end -->
+        </div>
+    </section>
+
+</div>
