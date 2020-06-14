@@ -3,9 +3,19 @@
 @{
     ViewBag.Title = "Pastwork More Info";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    int mid = Convert.ToInt32(Session["mid"]);
 }
-<h4 class="col-md-12 col-sm-12 col-lg-12">Pastwork Details</h4>
-<hr class="col-md-12 col-sm-12 col-lg-12" />
+<div class="row col-md-12 col-lg-12 col-sm-12">
+    <h4 class="row col-md-10 col-lg-10">Pastwork Detail</h4>
+    @if (Model.Eventmanagerid == mid)
+    {
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editmodal" style="float:right !important">
+            <i class="fas fa-edit"></i>
+            Edit
+        </button>
+    }
+    <hr class="row col-md-9" />
+</div>
 <div class="card col-md-12 col-sm-12 col-lg-12" style="margin:10px;padding:10px;">
     <div class="row col-md-12 col-sm-12 col-lg-12" style="margin:0px;padding:0px;">
         <div class="card col-md-12 col-lg-12" style="padding:0px;margin:0px;">
@@ -27,9 +37,64 @@
                 <p class="col-md-6">@Html.DisplayFor(model => model.Tblsubcategory.Subcategoryname)</p>
                 <p class="col-md-4">@Html.DisplayFor(model => model.Tblsubcategory.Tblcategory.Categoryname)</p>
                 <a class="col-md-2">@Html.DisplayFor(model => model.Tblpastworklikes.Count)<i class="fa fa-heart"></i></a>
-                <p class="col-md-12">@Html.DisplayFor(model => model.Description)</p>
+                <p class="col-md-12" id="udes">@Html.DisplayFor(model => model.Description)</p>
             </div>
         </div>
+
+        @if (Model.Eventmanagerid == mid)
+        {
+            <!-- The Modal -->
+            <div class="modal fade" id="editmodal">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title" style="float:left;">Edit Pastwork </h4>
+                            <button type="button" class="close" style="float:right; margin:10px;font-size:25px;" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control des" } })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-item mb-30">
+                                        <input type="file" name="ImageURL" placeholder="Add Image" title="Your Suggested work Image" multiple accept="Image/*" class="img" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-item mb-30">
+                                        <input type="file" name="VideoURL" placeholder="Add Video" title="Your Suggested work Video" multiple accept="Video/*" class="video" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-3 col-md-10">
+                                        <input type="button" value="Edit" id="uEdit" class="btn btn-info col-md-6" data-dismiss="modal" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        @*<div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>*@
+
+                    </div>
+                </div>
+            </div>
+            <!-- The Model End -->
+        }
+
         <div class="card col-md-12 col-lg-12" style="padding-top:10px;margin-top:10px;">
             <section id="event-section" class="event-section clearfix col-md-12 col-lg-12">
                 <div class="container">
@@ -80,8 +145,14 @@
                                 <!-- event-item - start -->
                                 @foreach (EventApp.Models.Tblpastworkimage i in Model.Tblpastworkimages)
                                 {
-                                    <div class="col-lg-4 col-md-4 col-sm-12" style="padding-bottom:10px;margin-bottom10px;">
-                                        <img src="~/Content/Shared/Pastwork/Pastwork_Image/@i.ImageURL" style="height:300px;width:300px;" />
+                                    <div class="col-lg-6 col-md-6 col-sm-12" style="padding-bottom:10px;margin-bottom:10px;">
+                                        <div class="row col-md-12 col-lg-12 col-sm-12" id="pimg-@i.Pastworkimageid">
+                                            <img src="~/Content/Shared/Pastwork/Pastwork_Image/@i.ImageURL" style="height:300px;width:300px;" id="uimg" class="col-md-10 col-lg-10 col-sm-8" />
+                                            @if (Session["mid"] != null)
+                                            {
+                                                <a href="#" onclick="return pastworkimg(@i.Pastworkimageid);"><i class="far fa-trash"></i></a>
+                                            }
+                                        </div>
                                     </div>
                                 }
                             </div>
@@ -93,10 +164,14 @@
                                 <!-- event-item - start -->
                                 @foreach (EventApp.Models.Tblpastworkvideo i in Model.Tblpastworkvideos)
                                 {
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-12" id="pvideo-@i.Pastworkvideoid">
                                         <video width="320" height="240" controls>
-                                            <source src="~/Content/Shared/Pastwork/Pastwork_Video/@i.VideoURL" type="video/mp4" />
+                                            <source src="~/Content/Shared/Pastwork/Pastwork_Video/@i.VideoURL" id="uvideo" type="video/mp4" />
                                         </video>
+                                        @if (Session["mid"] != null)
+                                        {
+                                            <a href="#" onclick="return pastworkvideo(@i.Pastworkvideoid);"><i class="far fa-trash"></i></a>
+                                        }
                                     </div>
                                 }
                             </div>
@@ -131,3 +206,76 @@
         </div>
     </div>
 </div>
+
+@if (Model.Eventmanagerid == mid)
+{
+    <script type="text/javascript">
+    $("#uEdit").click(function () {
+        var des = $(".des").val();
+        var img = $(".img").val();
+        var video = $(".video").val();
+        var st = 0;
+        if (des == "") {
+            st = 1;
+            console.error("Description can't be null");
+        }
+        if (img == null) {
+            st = 1;
+            console.error("Image can't be null");
+        }
+        if (video == null) {
+            st = 1;
+            console.error("Video can't be null");
+        }
+        if (st == 0) {
+            $.ajax({
+                type: "POST",
+                data: { pid: @Model.Pastworkid ,Description: des,ImageURL:img,VideoURL:video},
+                url: "@Url.Action("EditPastwork", "UrPastworks",null)",
+                success: function (result) {
+                    if (result == "true") {
+                        $("#udes").html(des);
+                        toastr.success(result + " Edit Success.", "Pastwork Edit");
+                         $("#uimg").html(img);
+                        toastr.success(result + " Edit Success.", "Pastwork Edit");
+                         $("#uvideo").html(video);
+                        toastr.success(result+" Edit Success.", "Pastwork Edit");
+                    }
+                    else
+                        toastr.error("Pastwork Edit Fail.", "Pastwork Edit");
+                    return false;
+                }
+            });
+        }
+        else {
+            toastr.error("Something went wrong please try again", "Edit");
+        }
+    });
+function pastworkimg(iid) {
+        $.ajax({
+            type: "POST",
+            data: { iid: iid},
+            url: "@Url.Action("DeletePastworkImages", "UrPastworks",null)",
+            success: function (result) {
+                $("#pimg-" + iid).html(result);
+                return false;
+            }
+        });
+
+        return false;
+        }
+        function pastworkvideo(vid) {
+        $.ajax({
+            type: "POST",
+            data: { vid: vid},
+            url: "@Url.Action("DeletePastworkvideos", "UrPastworks",null)",
+            success: function (result) {
+                $("#pvideo-" + vid).html(result);
+                return false;
+            }
+        });
+
+        return false;
+    }
+    </script>
+}

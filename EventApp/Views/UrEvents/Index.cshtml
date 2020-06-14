@@ -4,13 +4,75 @@
     ViewBag.Title = "Events";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
-<section id="event-section" class="event-section bg-gray-light clearfix">
+<style type="text/css">
+    select{
+            margin: 0px;
+            border: none;
+            padding: 0px;
+            position: relative;
+            padding-right: 20px;
+            display: inline-block;
+            -webkit-appearance: none;
+            background: transparent url(/Content/User/assets/images/2.down-arrow.png) no-repeat right 0px center;
+    }
+    .an{
+        text-decoration:none !important;
+        color:black;
+        font-size:30px !important;
+        background-image:none;
+    }
+</style>
+
+<section id="event-section" class="event-section bg-gray-light clearfix col-md-12 col-lg-12 col-sm-12" style="padding: 10px 0px 10px 0px;
+">
     <div class="row justify-content-center container">
+        <div class="search-result-form">
+            <form action="/UrEvents/Index/" method="post">
+                <ul>
+
+                    <li>
+                        <label for="year-select">Categoty:</label>
+                        <select id="category" name="category">
+                            <option value="">Select</option>
+                            @foreach (var c in ViewBag.category)
+                            {
+                                <option value="@c.Categoryid">@c.Categoryname</option>
+                            }
+                        </select>
+                    </li>
+                    <li>
+                        <label for="munth-select">SubCategory:</label>
+                        <select id="subcat" name="sid" required>
+                            <option value="0">Select</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="year-select">State:</label>
+                        <select id="state" name="state">
+                            <option value="0">Select</option>
+                            @foreach (var s in ViewBag.state)
+                            {
+                                <option value="@s.Stateid">@s.Statename</option>
+                            }
+                        </select>
+                    </li>
+                    <li>
+                        <label for="munth-select">City:</label>
+                        <select id="city" name="cid" >
+                            <option value="0">Select</option>
+                        </select>
+                    </li>
+                    <li>
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </li>
+                </ul>
+            </form>
+        </div>
         <div id="list-style" class="tab-pane fade in active show row container">
             <!-- event-grid-item - start -->
             @foreach (var item in Model)
             {
-                if (item.Endingdate.Date > DateTime.Now.Date) 
+                if (item.Endingdate.Date > DateTime.Now.Date && item.Status==0)
                 {
                     <div class="event-list-item clearfix col-md-6">
 
@@ -27,7 +89,9 @@
                         <div class="event-content">
                             <div class="event-title mb-15">
                                 <h3 class="title">
-                                    @item.Tblclient.Tbluser.Username <strong>&nbsp;</strong>
+                                    <a href="@Url.Action("Details","UrClients",new { id = item.Clientid })" class="an" onmouseover="this.style.color = '#FFFFFF';this.style.backgroundImage='linear-gradient(to bottom right, #ff3e00, #ffbe30)';" onmouseout="this.style.backgroundImage='none';this.style.color='#000000'">
+                                        &nbsp;@item.Tblclient.Tbluser.Username <strong>&nbsp;</strong>
+                                    </a>
                                 </h3>
                                 <span class="ticket-price yellow-color">@item.Tblsubcategory.Subcategoryname  @item.Tblsubcategory.Tblcategory.Categoryname</span>
                                 <br />
@@ -40,12 +104,12 @@
                                 <ul>
                                     <li>
                                         @*<span class="icon">
-                                            <i class="fas fa-microphone"></i>
-                                        </span>
-                                        <div class="info-content">
-                                            <small>&nbsp;</small>
-                                            <h3>&nbsp;</h3>
-                                        </div>*@
+                                                <i class="fas fa-microphone"></i>
+                                            </span>
+                                            <div class="info-content">
+                                                <small>&nbsp;</small>
+                                                <h3>&nbsp;</h3>
+                                            </div>*@
                                     </li>
                                     <li>
                                         <span class="icon">
@@ -64,9 +128,18 @@
                                     }
                                     else
                                     {
-                                        <li>
-                                            <a href="@Url.Action("EventsInfo","UrEvents",null)?id=@item.Usertenderid" class="tickets-details-btn">More Details</a>
-                                        </li>
+                                        if (Convert.ToInt32(Session["cid"]) == item.Clientid)
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("MyEventsDetails", "UrClientProfile", null)/@item.Usertenderid" class="tickets-details-btn">More Details</a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("EventsInfo", "UrEvents", null)?id=@item.Usertenderid" class="tickets-details-btn">More Details</a>
+                                            </li>
+                                        }
                                     }
                                 </ul>
                             </div>
@@ -79,4 +152,42 @@
         <!-- event-grid-item - end -->
     </div>
 </section>
+<script type="text/javascript">
+    $("#category").change(function () {
+        var id = $("#category").val();
+        $.ajax({
+            url: "@Url.Action("SubCategoryByCategory","UrEvents",null)?id=" + id,
+            success: function (result) {
+                $("#subcat").html(result);
+            }
+        });
+    });
+    $("#state").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "@Url.Action("CityByState","UrEvents",null)?id=" + id,
+            success: function (result) {
+                $("#city").html(result);
+            }
+        });
+    });
+    $("#subcat").change(function () {
+        var id = $(this).val();
+        $.ajax({
+            url: "@Url.Action("SearchEvents","UrEvents",null)?sid=" + id,
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                //debugger
+                var Data = JSON.parse(result.Data);
+                var date = new Date(Data[0]["Endingdate"]);
+            },
+            error: function (error) {
+                 console.log("Error:");
+                 console.log(error);
+            }
+        });
+    });
+</script>
 

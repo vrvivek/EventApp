@@ -1,20 +1,19 @@
-Eventmanager more info (UrEventManagers ma public ActionResult ManagerInfo(int id) a page ma Event manager ni basic info pastwork tab ma review and completed usertender"Events")
-
-Client MyEvents (UrClientProfile public ActionResult MyEvents(){})
-
-EventManager MyEvents (UrEventManagerProfile public ActionResult MyEvents(){})
-
 UrPastwork more info ma Event manager edit kari sake ano pastwork.
 
-User tender edit
+Search Event Manager
 
-Event manager tender view add view more and edit
+Admin ma status change karva nu che badha table ma khali icon j mukelo che coding baki che
 
-Pastwork like
-
-Event manager review
-
-All Report
+Notification
 
 Chatting
 
+All report display in Admin Done
+
+Client Details page Done
+
+Report Event Manager Done
+
+Report Client Done
+
+Search Event Done

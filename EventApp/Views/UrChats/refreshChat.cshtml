@@ -1,0 +1,49 @@
+﻿@model IEnumerable<EventApp.Models.Tblchat>
+
+@{
+    Layout = null;
+}
+
+@{
+    foreach (var item in Model)
+    {
+        if (item.Senderid == Convert.ToInt32(Session["uid"]))
+        {
+            <li class="me">
+                <figure>
+                    @if (item.Tbluser.Usertype == 1)
+                    {
+                        <img src="~/Content/Shared/Client_Image/@item.Tbluser.Profilepic" alt="">
+                    }
+                    else
+                    {
+                        <img src="~/Content/Shared/Eventer_Image/@item.Tbluser.Profilepic" alt="">
+                    }
+                </figure>
+                <div class="text-box">
+                    <p>@item.Message</p>
+                    <span><i class="ti-check"></i><i class="ti-check"></i> @item.Createddate.ToString("dd-MMM-yy H:m tt")</span>
+                </div>
+            </li>
+        }
+        else
+        {
+            <li class="you">
+                <figure>
+                    @if (item.Tbluser.Usertype == 1)
+                    {
+                        <img src="~/Content/Shared/Client_Image/@item.Tbluser.Profilepic" alt="">
+                    }
+                    else
+                    {
+                        <img src="~/Content/Shared/Eventer_Image/@item.Tbluser.Profilepic" alt="">
+                    }
+                </figure>
+                <div class="text-box">
+                    <p>@item.Message</p>
+                    <span><i class="ti-check"></i><i class="ti-check"></i> @item.Createddate.ToString("dd-MMM-yy H:m tt")</span>
+                </div>
+            </li>
+        }
+    }
+}

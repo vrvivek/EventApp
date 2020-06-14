@@ -24,7 +24,10 @@ namespace EventApp.Controllers.Admin
         // GET: AdmState
         public ActionResult Index()
         {
-            return View(db.Tblstates.ToList());
+            if (Session["admid"] != null)
+                return View(db.Tblstates.ToList());
+            else
+                return RedirectToAction("Index", "Login");
         }
 
         // GET: AdmState/Details/5

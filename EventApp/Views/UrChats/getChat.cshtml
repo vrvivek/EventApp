@@ -1,0 +1,88 @@
+﻿@model IEnumerable<EventApp.Models.Tblchat>
+@{
+    Layout = null;
+}
+    <div class="tab-pane active fade show" id="link1">
+        <div class="row merged">
+            <div class="col-lg-12">
+                <div class="mesg-area-head">
+                    <div class="active-user">
+                        <figure>
+                            @if (@ViewBag.user.Usertype == 1)
+                            {
+                                <img src="~/Content/Shared/Client_Image/@ViewBag.user.Profilepic" alt="">
+                            }
+                            else
+                            {
+                                <img src="~/Content/Shared/Eventer_Image/@ViewBag.user.Profilepic" alt="">
+                            }
+                            <span class="status f-online"></span>
+                        </figure>
+                        <div>
+                            <h6 class="unread">@ViewBag.user.Username</h6>
+                            <span>Online</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="mesge-area">
+                    <ul class="conversations ps-container ps-theme-default ps-active-y" data-ps-id="15aaba73-22e5-66d9-9f01-edbc1c7ed806" id="chatData2" style="overflow-y:auto !important;">
+                        @{
+                            foreach (var item in Model)
+                            {
+                                if (item.Senderid == Convert.ToInt32(Session["uid"]))
+                                {
+                                    <li class="me">
+                                        <figure>
+                                            @if (item.Tbluser.Usertype == 1)
+                                            {
+                                                <img src="~/Content/Shared/Client_Image/@item.Tbluser.Profilepic" alt="">
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/Shared/Eventer_Image/@item.Tbluser.Profilepic" alt="">
+                                            }
+                                        </figure>
+                                        <div class="text-box">
+                                            <p>@item.Message</p>
+                                            <span><i class="ti-check"></i><i class="ti-check"></i> @item.Createddate.ToString("dd-MMM-yy H:m tt")</span>
+                                        </div>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="you">
+                                        <figure>
+                                            @if (item.Tbluser.Usertype == 1)
+                                            {
+                                                <img src="~/Content/Shared/Client_Image/@item.Tbluser.Profilepic" alt="">
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/Shared/Eventer_Image/@item.Tbluser.Profilepic" alt="">
+                                            }
+                                        </figure>
+                                        <div class="text-box">
+                                            <p>@item.Message</p>
+                                            <span><i class="ti-check"></i><i class="ti-check"></i> @item.Createddate.ToString("dd-MMM-yy H:m tt")</span>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="message-writing-box">
+                    <form method="post">
+                        <div class="text-area">
+                            <input type="text" id="msg" name="msg" placeholder="write your message here.." required>
+                            <button type="button" onclick="sendMsg(msg.value)"><i class="fa fa-paper-plane-o"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>

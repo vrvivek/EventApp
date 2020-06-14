@@ -20,7 +20,33 @@ namespace EventApp.Controllers.Admin
         // GET: AdmClient
         public ActionResult Index()
         {
-            return View(db.Tblclients.ToList());
+            if (Session["admname"] != null)
+                return View(db.Tblclients.ToList());
+            else
+                return RedirectToAction("Index", "Login");
+        }
+
+        public string ChangeStatus(int? cid)
+        {
+            Tblclient c = db.Tblclients.SingleOrDefault(a => a.Clientid == cid);
+            if (c != null)
+            {
+                string str = "";
+                if (c.Tbluser.Status == 0)
+                {
+                    str = "<a href='#' class='status' data-id='"+cid+"'><i class='ion ion-locked' ></i></a>";
+                    c.Tbluser.Status = 1;
+                }
+                else
+                {
+                    str = "<a href='#' class='status' data-id='" + cid + "'><i class='fa fa-lock-open' ></i></a>";
+                    c.Tbluser.Status = 0;
+                }
+                db.SaveChanges();
+                return str;
+            }
+            else
+                return "false";
         }
 
         // GET: AdmClient/Details/5
@@ -51,48 +77,5 @@ namespace EventApp.Controllers.Admin
             }
         }
 
-        // GET: AdmClient/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: AdmClient/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: AdmClient/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: AdmClient/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

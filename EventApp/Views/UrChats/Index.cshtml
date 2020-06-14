@@ -1,0 +1,8 @@
+﻿@model IEnumerable<EventApp.Models.Tbluser>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutChat.cshtml";
+}
+
+@Html.Partial("_IndexPartial", Model);

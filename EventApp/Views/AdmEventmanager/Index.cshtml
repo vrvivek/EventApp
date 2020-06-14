@@ -34,39 +34,50 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tbluser.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Companyname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Website)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @if (item.Tbluser.Status == 0)
-                {
-                    <a href=""><i class="fa fa-lock-open"></i></a>
-                }
-                else
-                {
-                    <a href=""><i class="ion ion-locked"></i></a>
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.About)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Coverpic)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Eventmanagerid }) |
-            </td>
-        </tr>
+            <tr id="cs-@item.Eventmanagerid">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tbluser.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Companyname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Website)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td id="cs-@item.Eventmanagerid">
+                    @if (item.Tbluser.Status == 0)
+                    {
+                        <a href="#" class="status" data-id="@item.Eventmanagerid"><i class="fa fa-lock-open"></i></a>
+                    }
+                    else
+                    {
+                        <a href="#" class="status" data-id="@item.Eventmanagerid"><i class="ion ion-locked"></i></a>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.About)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Coverpic)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Eventmanagerid }) |
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+<script type="text/javascript">
+    $(".status").click(function () {
+        id = $(this).attr("data-id");
+        $.ajax({
+            url: "@Url.Action("ChangeStatus", "AdmEventmanager", null)?mid="+id,
+            success: function (result) {
+                $("cs-"+id).html(result);
+            }
+        });
+    });
+</script>

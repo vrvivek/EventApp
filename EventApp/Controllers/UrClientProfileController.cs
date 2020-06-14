@@ -63,13 +63,28 @@ namespace EventApp.Controllers
         }
 
         // GET: UrClientProfile/MyEventsDetails/5
-        public ActionResult MyEventsDetails(int? id)
+        public ActionResult MyEventsDetails(int? id,int? st=0)
         {
             if (Session["uid"] != null && Session["cid"] != null)
             {
-                ViewBag.Cityid = new SelectList(db.Tblcities.ToList(), "Cityid", "Cityname");
-                ViewBag.Subcategoryid = new SelectList(db.Tblsubcategories.ToList(), "Subcategoryid", "Subcategoryname");
+                if (st == 1)
+                    ViewBag.stmsg = "success";
                 return View(db.Tblusertenders.SingleOrDefault(a => a.Usertenderid == id));
+            }
+            else
+                return RedirectToAction("Index", "UrLogin");
+        }
+
+        public ActionResult SelectEventBid(int id, int bid)
+        {
+            if (Session["cid"] != null)
+            {
+                Tblusertender t = db.Tblusertenders.SingleOrDefault(a=>a.Usertenderid==id);
+                Tblusertenderbid utb = db.Tblusertenderbids.SingleOrDefault(b=>b.Usertenderbidid==bid && b.Usertenderid==id);
+                t.Status = 2;
+                utb.Is_selected = 1;
+                db.SaveChanges();
+                return RedirectToAction("MyEventsDetails/" + id,new { st=1});
             }
             else
                 return RedirectToAction("Index", "UrLogin");
@@ -77,7 +92,17 @@ namespace EventApp.Controllers
 
         public string EditUserEvent(int tid,int Price,string Description,DateTime enddate)
         {
-            return "true ";
+            if (Session["cid"] != null && tid != 0 && Price != 0 && Description != "" && enddate > DateTime.Now)
+            {
+                Tblusertender t = db.Tblusertenders.SingleOrDefault(a => a.Usertenderid == tid);
+                t.Price = Price;
+                t.Description = Description;
+                t.Endingdate = enddate;
+                db.SaveChanges();
+                return "true";
+            }
+            else
+                return "false";
         }
 
         // POST: UrClientProfile/EditDetails 

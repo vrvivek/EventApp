@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Pastwork More Info";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    int cid = 0;
+    cid = Convert.ToInt32(Session["cid"]);
 }
 <h4 class="col-md-12 col-sm-12 col-lg-12">Pastwork Details</h4>
 <hr class="col-md-12 col-sm-12 col-lg-12" />
@@ -26,7 +28,16 @@
             <div class="row col-md-12 col-lg-12" style="margin:0px;padding:0px;">
                 <p class="col-md-6">@Html.DisplayFor(model => model.Tblsubcategory.Subcategoryname)</p>
                 <p class="col-md-4">@Html.DisplayFor(model => model.Tblsubcategory.Tblcategory.Categoryname)</p>
-                <a class="col-md-2">@Html.DisplayFor(model => model.Tblpastworklikes.Count)<i class="fa fa-heart"></i></a>
+                <p class="col-md-2" id="plike-@Model.Pastworkid">
+                    @if (Session["cid"] != null && Model.Tblpastworklikes.SingleOrDefault(a => a.Clientid == cid) == null)
+                    {
+                        <a href="#" onclick="return pastworklike(@Model.Pastworkid);">@Model.Tblpastworklikes.Count<i class="far fa-heart"></i></a>
+                    }
+                    else
+                    {
+                        <a href="#" onclick="return pastworklike(@Model.Pastworkid);">@Model.Tblpastworklikes.Count<i class="fa fa-heart"></i></a>
+                    }
+                </p>
                 <p class="col-md-12">@Html.DisplayFor(model => model.Description)</p>
             </div>
         </div>
@@ -131,3 +142,18 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function pastworklike(pid) {
+        $.ajax({
+            type: "POST",
+            data: { pid: pid},
+            url: "@Url.Action("PastworkLikeUnLike", "UrEventManagers",null)",
+            success: function (result) {
+                $("#plike-" + pid).html(result);
+                return false;
+            }
+        });
+
+        return false;
+    }
+</script>

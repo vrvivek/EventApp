@@ -1,0 +1,106 @@
+﻿@model EventApp.Models.Tblmanagertender
+
+@{
+    ViewBag.Title = "ManagerEventCreate";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+
+
+
+@using (Html.BeginForm("ManagerEventCreate", "UrEvents", Model, FormMethod.Post, htmlAttributes: new { @class = "col-md-offset-3 col-md-6" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h2>Add Events</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cityid, "Select City", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.Cityid, null, new { @class = "form-control", @style = "height:35px" })
+                @Html.ValidationMessageFor(model => model.Cityid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Subcategoryid, "Subcategoryid", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                @Html.DropDownList("Subcategoryid", null, htmlAttributes: new { @class = "form-control", @style = "height:35px" })
+                @Html.ValidationMessageFor(model => model.Subcategoryid, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" id="datetime">
+            @Html.Label("Ending Date", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
+                <div class='input-group date col-md-12' id='datetimepicker3'>
+                    <input type='text' name="Endingdate" class="Ending form-control" autocomplete="off" />
+                    <span class="input-group-addon dcal">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    <span class="input-group-addon dedit">
+                        <span class="fa fa-edit"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-10">
+                <input type="submit" value="Create" class="btn btn-info col-md-8" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-1 col-md-9">@ViewBag.msg</div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#datetimepicker3').datetimepicker({
+            format: "D-M-Y",
+            minDate: new Date(),
+            useCurrent: false
+        });
+        $(".dedit").hide();
+        $(".Ending").click(function () {
+            $(".Ending").attr("disabled", "true");
+            $(".dcal").hide();
+            $(".dedit").show();
+        });
+        $(".dedit").click(function () {
+            $(".Ending").removeAttr("disabled");
+            $(".dedit").hide();
+            $(".dcal").show();
+        });
+    });
+</script>

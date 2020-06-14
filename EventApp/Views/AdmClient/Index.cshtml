@@ -37,7 +37,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr id="cs-@item.Clientid">
                 <td>
                     @Html.DisplayFor(modelItem => item.Tbluser.Username)
                 </td>
@@ -58,14 +58,14 @@
                     }
 
                 </td>
-                <td>
+                <td id="cs-@item.Clientid">
                     @if (item.Tbluser.Status == 0)
                     {
-                        <a href=""><i class="fa fa-lock-open" ></i></a>
+                        <a href="#" class="status" data-id="@item.Clientid" ><i class="fa fa-lock-open" ></i></a>
                     }
                     else
                     {
-                        <a href=""><i class="ion ion-locked" ></i></a>
+                        <a href="#" class="status" data-id="@item.Clientid"><i class="ion ion-locked" ></i></a>
                     }
                 </td>
                 <td>
@@ -81,3 +81,14 @@
         }
     </tbody>
 </table>
+<script type="text/javascript">
+    $(".status").click(function () {
+        id = $(this).attr("data-id");
+        $.ajax({
+            url: "@Url.Action("ChangeStatus", "AdmClient", null)?cid="+id,
+            success: function (result) {
+                $("cs-"+id).html(result);
+            }
+        });
+    });
+</script>

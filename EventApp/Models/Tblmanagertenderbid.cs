@@ -22,15 +22,15 @@ namespace EventApp.Models
 
         public int Price { get; set; }
 
-        public int Eventmanagerid { get; set; }
-
-        public DateTime Createddate { get; set; }
-
         [Required]
-        [StringLength(500)]
+        [StringLength(1500)]
         public string Description { get; set; }
 
         public byte? Is_selected { get; set; }
+
+        public int Eventmanagerid { get; set; }
+
+        public DateTime Createddate { get; set; }
 
         public virtual Tbleventmanager Tbleventmanager { get; set; }
 

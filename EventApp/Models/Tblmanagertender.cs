@@ -19,16 +19,16 @@ namespace EventApp.Models
         public int Managertenderid { get; set; }
 
         [Required]
-        [StringLength(500)]
+        [StringLength(1500)]
         public string Description { get; set; }
+
+        public int Eventmanagerid { get; set; }
 
         public byte Status { get; set; }
 
         public int Cityid { get; set; }
 
         public int Price { get; set; }
-
-        public int Eventmanagerid { get; set; }
 
         public int Subcategoryid { get; set; }
 

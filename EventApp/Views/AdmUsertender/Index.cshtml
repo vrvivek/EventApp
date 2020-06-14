@@ -38,42 +38,65 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tblclient.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tblcity.Cityname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @if (item.Status == 0)
-                {
-                    <a href=""><i class="fa fa-lock-open"></i></a>
-                }
-                else
-                {
-                    <a href=""><i class="ion ion-locked"></i></a>
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tblsubcategory.Subcategoryname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Startingdate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Endingdate)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Usertenderid }) |
-            </td>
-        </tr>
+            <tr id="cs-@item.Usertenderid">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tblclient.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tblcity.Cityname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td id="cs-@item.Usertenderid">
+                    @if (item.Status == 0)
+                    {
+                        <button class="btn btn-danger status" data-id="@item.Usertenderid">Work in progress</button>
+                    }
+                    else if (item.Status == 1)
+                    {
+                        <button class="btn btn-danger status" data-id="@item.Usertenderid">Cancel by Admin</button>
+                    }
+                    else if (item.Status == 2)
+                    {
+                        <button class="btn btn-danger status" data-id="@item.Usertenderid">Cancel by Client</button>
+                    }
+                    else if (item.Status == 3)
+                    {
+                        <button class="btn btn-danger status" data-id="@item.Usertenderid">Finished</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-danger status" data-id="@item.Usertenderid">Running</button>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tblsubcategory.Subcategoryname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Startingdate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Endingdate)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Usertenderid }) |
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+<script type="text/javascript">
+    $(".status").click(function () {
+        id = $(this).attr("data-id");
+        $.ajax({
+            url: "@Url.Action("ChangeStatus", "AdmUsertender", null)?utid="+id,
+            success: function (result) {
+                $("cs-"+id).html(result);
+            }
+        });
+    });
+</script>

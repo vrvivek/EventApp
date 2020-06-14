@@ -90,6 +90,79 @@ namespace EventApp.Controllers
             }
         }
 
+        public string EditPastwork(int pid,string Description, HttpPostedFileBase[] ImageURL, HttpPostedFileBase[] VideoURL)
+        {
+            if (Session["mid"] != null && pid != 0 && Description != "" && ImageURL==null && VideoURL==null)
+            {
+                Tblpastwork p = db.Tblpastworks.SingleOrDefault(a => a.Pastworkid == pid);
+                p.Description = Description;
+                db.SaveChanges();
+                foreach (HttpPostedFileBase Image in ImageURL)
+                {
+                    var filename = System.IO.Path.GetFileName(Image.FileName);
+                    Random random = new Random();
+                    filename = random.Next(99, 99999) + "_Pastworkimage_" + filename;
+                    var path = System.IO.Path.Combine(Server.MapPath("~/Content/Shared/Pastwork/Pastwork_Image"), filename);
+                    Image.SaveAs(path);
+                    Tblpastworkimage pwimg = new Tblpastworkimage();
+                    pwimg.ImageURL = filename;
+                    pwimg.Pastworkid = p.Pastworkid;
+                    db.Tblpastworkimages.Add(pwimg);
+                    db.SaveChanges();
+                }
+                foreach (HttpPostedFileBase Video in VideoURL)
+                {
+                    var filename = System.IO.Path.GetFileName(Video.FileName);
+                    Random random = new Random();
+                    filename = random.Next(99, 99999) + "_Pastworkvideo_" + filename;
+                    var path = System.IO.Path.Combine(Server.MapPath("~/Content/Shared/Pastwork/Pastwork_Video"), filename);
+                    Video.SaveAs(path);
+                    Tblpastworkvideo pwvideo = new Tblpastworkvideo();
+                    pwvideo.VideoURL = filename;
+                    pwvideo.Pastworkid = p.Pastworkid;
+                    db.Tblpastworkvideos.Add(pwvideo);
+                    db.SaveChanges();
+                }
+                return "true";
+            }
+            else
+                return "false";
+        }
+
+        public String DeletePastworkImages(int iid)
+        {
+            if (iid != 0 && Session["mid"] != null)
+            {
+                Tblpastworkimage pwimg = db.Tblpastworkimages.SingleOrDefault(a => a.Pastworkimageid == iid);
+                var filename = pwimg.ImageURL;
+                var fullPath = Request.MapPath("~/Content/Shared/Pastwork/Pastwork_Image" + filename);
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
+                }
+                return "true";
+            }
+            else
+                return "false";
+        }
+
+        public String DeletePastworkvideos(int vid)
+        {
+            if (vid != 0 && Session["mid"] != null)
+            {
+                Tblpastworkvideo pwvideo = db.Tblpastworkvideos.SingleOrDefault(a => a.Pastworkvideoid == vid);
+                var filename = pwvideo.VideoURL;
+                var fullPath = Request.MapPath("~/Content/Shared/Pastwork/Pastwork_Video" + filename);
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
+                }
+                return "true";
+            }
+            else
+                return "false";
+        }
+
         // GET: UrPastworks/Edit/5
         public ActionResult Edit(int id)
         {

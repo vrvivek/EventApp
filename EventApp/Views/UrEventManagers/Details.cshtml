@@ -3,12 +3,23 @@
 @{
     ViewBag.Title = "Eventmanager More Info";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    int cid = 0;
+    cid = Convert.ToInt32(Session["cid"]);
 }
-<h4 class="col-md-12">Eventmanager Detail</h4>
-<hr class="col-md-12" />
-<section id="event-section" class="event-section bg-gray-light clearfix" style="padding:30px;margin:20px;">
+<div class="row col-md-12 col-lg-12 col-sm-12">
+    <h4 class="row col-md-10 col-lg-10">Event Manager Detail</h4>
+    @if (Session["cid"] != null && Model.Tblreporteventmnagers.SingleOrDefault(a => a.Clientid == cid) == null)
+    {
+        <button type="button" class="btn btn-warning col-md-2 col-lg-2 col-sm-6" data-toggle="modal" data-target="#createmodal" style="float:right !important">
+            <i class="fas fa-edit"></i>
+            Report
+        </button>
+    }
+    <hr class="row col-md-9" />
+</div>
+<section id="event-section" class="event-section bg-gray-light clearfix col-md-12 col-lg-12 col-sm-12" style="padding:30px;margin:20px;">
     <div class="row justify-content-center">
-        <div id="grid-style" class="tab-pane fade in active show">
+        <div id="grid-style" class="tab-pane fade in active show col-md-12 col-lg-12 col-sm-12">
             <div class="row justify-content-center">
                 <!-- event-grid-item - start -->
                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -68,6 +79,51 @@
         </div>
     </div>
 </section>
+@if (Session["cid"] != null && Model.Tblreporteventmnagers.SingleOrDefault(a => a.Clientid == cid) == null)
+{
+    <!-- The Modal -->
+    <div class="modal fade" id="createmodal">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" style="float:left;">Create Reporteventmanager </h4>
+                    <button type="button" class="close" style="float:right; margin:10px;font-size:25px;" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="form-wrapper">
+                        <form action="/UrEventManagers/AddReportEventmanager/@Model.Eventmanagerid" method="post">
+                            <div class="row">
+                                <!-- form-item - start -->
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-item mb-30">
+                                        <input type="text" name="Reason" id="Reason" placeholder="Reason" required />
+                                    </div>
+                                </div>
+                                <!-- form-item - end -->
+                                <!-- form-item - start -->
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <button type="submit" class="custom-btn mb-30">Create</button>
+                                </div>
+                                <!-- form-item - end -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                @*<div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>*@
+
+            </div>
+        </div>
+    </div>
+    <!-- The Model End -->
+}
 <div class="card col-md-12 col-lg-12" style="padding-top:10px;margin-top:10px;">
     <section id="event-section" class="event-section clearfix col-md-12 col-lg-12">
         <div class="container">
@@ -88,17 +144,17 @@
                             <ul class="nav">
                                 <li>
                                     <a data-toggle="tab" href="#pastworks" class="active">
-                                        <strong><i class="fas fa-images"></i>Pastwork</strong>
+                                        <strong><i class="fas fa-suitcase"></i>Pastwork</strong>
                                     </a>
                                 </li>
                                 <li>
                                     <a data-toggle="tab" href="#reviews">
-                                        <strong><i class="fas fa-video"></i>Review</strong>
+                                        <strong><i class="fas fa-comment"></i>Review</strong>
                                     </a>
                                 </li>
                                 <li>
                                     <a data-toggle="tab" href="#completetenders">
-                                        <strong><i class="fas fa-heart"></i>Complete Tender</strong>
+                                        <strong><i class="fas fa-gavel"></i>Complete Tender</strong>
                                     </a>
                                 </li>
                             </ul>
@@ -118,31 +174,41 @@
                         <!-- event-item - start -->
                         @foreach (EventApp.Models.Tblpastwork i in Model.Tblpastworks)
                         {
-                        
-                            <div class="card row col-md-12 col-lg-12" style="margin:0px;padding:0px;">
-                                <div class="col-md-2 col-lg-2" style="margin:5px;padding:5px;">
-                                    <center><img src="~/Content/Shared/Eventer_Image/@i.Tbleventmanager.Tbluser.Profilepic" style="border-radius:50%;height:60px;width:60px;" /></center>
-                                </div>
-                                <div class="col-md-9 col-lg-9" style="margin-top:5px;padding:5px;">
-                                    <div class="row col-md-12 col-lg-12" style="padding:0px;margin:0px;">
-                                        <p class="col-md-4">@i.Tbleventmanager.Name</p>
-                                        <p class="col-md-8">@i.Createddate.Day @i.Createddate.ToString("MMMM") @i.Createddate.Year</p>
-                                        <p class="col-md-12">@i.Tbleventmanager.Companyname</p>
+                            <div class="card col-md-12 col-lg-12" style="margin:0px;padding:0px;">
+                                <div class="row col-md-12 col-lg-12" style="margin:0px;padding:0px;">
+                                    <div class="col-md-2 col-lg-2" style="margin:5px;padding:5px;">
+                                        <img src="~/Content/Shared/Eventer_Image/@i.Tbleventmanager.Tbluser.Profilepic" style="border-radius:50%;height:60px;width:60px;" />
+                                    </div>
+                                    <div class="col-md-9 col-lg-9" style="margin-top:5px;padding:5px;">
+                                        <div class="row col-md-12 col-lg-12" style="padding:0px;margin:0px;">
+                                            <p class="col-md-4">@i.Tbleventmanager.Name</p>
+                                            <p class="col-md-8">@i.Createddate.Day @i.Createddate.ToString("MMMM") @i.Createddate.Year</p>
+                                            <p class="col-md-12">@i.Tbleventmanager.Companyname</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card col-md-12 col-sm-12 col-lg-12" style="margin-bottom:5px;padding-bottom:5px;">
+                            <div class="card col-md-12 col-sm-12 col-lg-12" style="margin-bottom:10px;padding-bottom:10px;">
                                 <div class="row col-md-12 col-lg-12" style="padding:10px;margin:10px;">
                                     <p class="col-md-4">@i.Tblsubcategory.Subcategoryname</p>
                                     <p class="col-md-4">@i.Tblsubcategory.Tblcategory.Categoryname</p>
-                                    <a class="col-md-4">@i.Tblpastworklikes.Count<i class="fa fa-heart"></i></a>
+                                    <p class="col-md-4" id="plike-@i.Pastworkid">
+                                        @if (Session["cid"] != null && i.Tblpastworklikes.SingleOrDefault(a => a.Clientid == cid) == null)
+                                        {
+                                            <a href="#" onclick="return pastworklike(@i.Pastworkid);">@i.Tblpastworklikes.Count<i class="far fa-heart"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#" onclick="return pastworklike(@i.Pastworkid);">@i.Tblpastworklikes.Count<i class="fa fa-heart"></i></a>
+                                        }
+                                    </p>
                                     <div class="col-md-8">@i.Description</div>
                                     <div class="col-md-4">
                                         @Html.ActionLink("More Details", "PastworkDetails", new { id = i.Pastworkid })
                                     </div>
                                 </div>
                             </div>
-                        
+
                         }
                     </div>
                 </div>
@@ -151,19 +217,18 @@
                 <div id="reviews" class="tab-pane fade">
                     <div class="row col-md-12 col-lg-12 col-sm-12">
                         <!-- event-item - start -->
-                        @if (Session["cid"] != null)
+                        @if (Session["cid"] != null && Model.Tblreviews.SingleOrDefault(a => a.Clientid == cid) == null)
                         {
                             <!-- Bid-Edit-form - start -->
-                            <div class="comment-form clearfix col-md-6" id="bideditform">
+                            <div class="comment-form clearfix col-md-6">
 
                                 <div class="section-title text-left mb-50">
                                     <h2 class="big-title">Create <strong>Review</strong></h2>
                                 </div>
 
                                 <div class="form-wrapper">
-                                    <form action="#" method="post">
+                                    <form action="/UrEventManagers/AddRating/@Model.Eventmanagerid" method="post">
                                         <div class="row">
-
                                             <!-- form-item - start -->
                                             <div class="col-lg-12 col-md-12 col-sm-12">
                                                 <div class="form-item mb-30">
@@ -173,8 +238,14 @@
                                             <!-- form-item - end -->
                                             <!-- form-item - start -->
                                             <div class="col-lg-12 col-md-12 col-sm-12">
-                                                <div class="form-item mb-30">
-                                                    <input type="text" name="Rating" id="Rating" placeholder="Rating" required />
+                                                <div class="form-item mb-30" style="font-size:15px;">
+                                                    Rating:
+                                                    <i class="far fa-star st1" data-id="1" style="color:#FFC107"></i>
+                                                    <i class="far fa-star st2" data-id="2" style="color:#FFC107"></i>
+                                                    <i class="far fa-star st3" data-id="3" style="color:#FFC107"></i>
+                                                    <i class="far fa-star st4" data-id="4" style="color:#FFC107"></i>
+                                                    <i class="far fa-star st5" data-id="5" style="color:#FFC107"></i>
+                                                    <input type="number" name="Rating" id="Rating" placeholder="Rating" required />
                                                 </div>
                                                 <button type="submit" class="custom-btn mb-30">Create</button>
                                             </div>
@@ -188,57 +259,72 @@
                         }
                         @foreach (EventApp.Models.Tblreview i in Model.Tblreviews)
                         {
-                            <div class="card col-md-12 col-lg-12" style="padding:0px;margin:0px;">
+                            <div class="card col-md-12 col-lg-12" style="padding-bottom:10px;margin-bottom:10px;">
                                 <div class="row col-md-12 col-lg-12" style="margin:0px;padding:0px;">
                                     <div class="col-md-2 col-lg-2" style="margin:10px;padding:10px;">
-                                        <center><img src="~/Content/Shared/Client_Image/@i.Tblclient.Tbluser.Profilepic" style="border-radius:50%;height:60px;width:60px;" /></center>
+                                        <center><img src="~/Content/Shared/Client_Image/@i.Tblclient.Tbluser.Profilepic" style="border-radius:50%;height:auto;width:auto;" /></center>
                                     </div>
                                     <div class="col-md-9 col-lg-9" style="margin-top:10px;padding:10px;">
                                         <div class="row col-md-12 col-lg-12" style="padding:0px;margin:0px;">
                                             <p class="col-md-4"> @i.Tblclient.Name</p>
                                             <p class="col-md-8"> @i.Createddate.Day @i.Createddate.ToString("MMMM") @i.Createddate.Year</p>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12" style="margin-top:10px;padding:10px;">
-                                        <p>@i.Review</p>
-                                    </div>
-                                    <div class="col-md-12" style="margin-top:10px;padding:10px;">
-                                        <p>@i.Rating</p>
+                                        <div class="row col-md-12" style="margin-top:10px;padding:10px;">
+                                            <p>@i.Review</p>
+                                        </div>
+                                        <div class="row col-md-12" style="margin-top:10px;padding:10px;">
+                                            <p>
+                                                @for (int j = 1; j <= 5; j++)
+                                                {
+                                                    if (i.Rating >= j)
+                                                    {
+                                                        <i class="fas fa-star" style="color:#FFC107"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="far fa-star" style="color:#FFC107"></i>
+                                                    }
+                                                }
 
+                                            </p>
+
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                         }
                     </div>
                 </div>
-                <div id="completetender" class="tab-pane fade">
-                    <div class="row">
+                <div id="completetenders" class="tab-pane fade">
+                    <div class="row col-md-12 col-lg-12 col-sm-12">
                         <!-- event-item - start -->
+
                         @foreach (EventApp.Models.Tblusertender i in ViewBag.ctender)
                         {
-                            <div class="card col-md-12 col-lg-12 col-sm-12">
+                            <div class="card col-md-12 col-lg-12 col-sm-12" style="margin-bottom:10px;padding-bottom:10px;">
                                 <div class="row col-md-12 col-sm-12 col-lg-12">
                                     <div class="col-md-2 col-lg-2" style="margin:10px;padding:10px;">
-                                        <img src="~/Content/Shared/Client_Image/@i.Tblclient.Tbluser.Profilepic" />
+                                        <img src="~/Content/Shared/Client_Image/@i.Tblclient.Tbluser.Profilepic" style="border-radius:50%;" />
                                     </div>
                                     <div class="col-md-9 col-sm-12 col-lg-9" style="margin:10px;padding:10px;">
                                         <div class="row col-md-12 col-lg-8 col-sm-12" style="margin:10px;padding:10px;">
-                                            <p class="col-md-4">@i.Tblclient.Name</p>
-                                            <p class="col-md-8">@i.Endingdate.Day @i.Endingdate.ToString("MMMM") @i.Endingdate.Year</p>
+                                            <p class="col-md-6">@i.Tblclient.Name</p>
+                                            <p class="col-md-6 right">@i.Endingdate.Day @i.Endingdate.ToString("MMMM") @i.Endingdate.Year</p>
                                         </div>
-                                        <div class="col-md-12 col-sm-12 col-lg-8" style="margin:10px;padding:10px;">
-                                            <p class="col-md-4">@i.Tblsubcategory.Subcategoryname</p>
-                                            <p class="col-md-4">@i.Tblsubcategory.Tblcategory.Categoryname</p>
-                                            <p class="col-md-4">@i.Price</p>
-                                        </div>
-                                        <div class="col-md-12 col-sm-12 col-lg-8" style="margin:10px;padding:10px;">
-                                            At<p class="col-md-4">@i.Tblcity.Cityname</p>
-                                            <p class="col-md-4">@i.Tblcity.Tblstate.Statename</p>
-                                            <a href="" class="col-md-4"></a>
-                                        </div>
+
                                     </div>
-                                    <div class="col-md-12 col-sm-12 col-lg-8" style="padding:10px;margin:10px;">
-                                        <p>description</p>
+                                    <div class="row col-md-12 col-sm-12 col-lg-12" style="margin:0px;padding:0px;">
+                                        <p class="col-md-4">@i.Tblsubcategory.Subcategoryname</p>
+                                        <p class="col-md-4">@i.Tblsubcategory.Tblcategory.Categoryname</p>
+                                        <p class="col-md-4">@i.Price</p>
+                                    </div>
+                                    <div class="row col-md-12 col-sm-12 col-lg-12" style="margin:0px;padding:0px;">
+                                        At<p class="col-md-8">@i.Tblcity.Cityname,@i.Tblcity.Tblstate.Statename</p>
+                                        <a href="" class="col-md-4"></a>
+                                    </div>
+                                    <div class="row col-md-12 col-sm-12 col-lg-8" style="padding:0px;margin:0px;">
+                                        <p>@i.Description</p>
                                     </div>
                                 </div>
                             </div>
@@ -250,5 +336,51 @@
             <!-- tab-content - end -->
         </div>
     </section>
-
 </div>
+<script type="text/javascript">
+    function pastworklike(pid) {
+        $.ajax({
+            type: "POST",
+            data: { pid: pid},
+            url: "@Url.Action("PastworkLikeUnLike", "UrEventManagers",null)",
+            success: function (result) {
+                $("#plike-" + pid).html(result);
+                return false;
+            }
+        });
+        return false;
+    }
+</script>
+<script type="text/javascript">
+    $("#Rating").hide();
+    function rating(id) {
+        for (i = 1; i <= 5; i++) {
+            if (i <= id)
+                $(".st" + i).attr("class", "fas fa-star st" + i);
+            else
+                $(".st" + i).attr("class", "far fa-star st" + i);
+        }
+        //console.error(id);
+        $("#Rating").attr("value", id);
+    }
+    $(".st1").click(function () {
+        var id = $(".st1").attr("data-id");
+        rating(id);
+    });
+    $(".st2").click(function () {
+        var id = $(".st2").attr("data-id");
+        rating(id);
+    });
+    $(".st3").click(function () {
+        var id = $(".st3").attr("data-id");
+        rating(id);
+    });
+    $(".st4").click(function () {
+        var id = $(".st4").attr("data-id");
+        rating(id);
+    });
+    $(".st5").click(function () {
+        var id = $(".st5").attr("data-id");
+        rating(id);
+    });
+</script>

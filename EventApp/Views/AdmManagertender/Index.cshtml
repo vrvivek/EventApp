@@ -38,7 +38,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
+        <tr id="cs-@item.Managertenderid">
             <td>
                 @Html.DisplayFor(modelItem => item.Tbleventmanager.Name)
             </td>
@@ -51,14 +51,26 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
-            <td>
+            <td id="cs-@item.Managertenderid">
                 @if (item.Status == 0)
                 {
-                    <a href=""><i class="fa fa-lock-open"></i></a>
+                    <button class="btn btn-danger status" data-id="@item.Managertenderid">Work in progress</button>
+                }
+                else if (item.Status == 1)
+                {
+                    <button class="btn btn-danger status" data-id="@item.Managertenderid">Cancel by Admin</button>
+                }
+                else if (item.Status == 2)
+                {
+                    <button class="btn btn-danger status" data-id="@item.Managertenderid">Cancel by Client</button>
+                }
+                else if (item.Status == 3)
+                {
+                    <button class="btn btn-danger status" data-id="@item.Managertenderid">Finished</button>
                 }
                 else
                 {
-                    <a href=""><i class="ion ion-locked"></i></a>
+                    <button class="btn btn-danger status" data-id="@item.Managertenderid">Running</button>
                 }
             </td>
             <td>
@@ -77,3 +89,14 @@
         }
     </tbody>
 </table>
+<script type="text/javascript">
+    $(".status").click(function () {
+        id = $(this).attr("data-id");
+        $.ajax({
+            url: "@Url.Action("ChangeStatus", "AdmManagertender", null)?mtid="+id,
+            success: function (result) {
+                $("cs-"+id).html(result);
+            }
+        });
+    });
+</script>

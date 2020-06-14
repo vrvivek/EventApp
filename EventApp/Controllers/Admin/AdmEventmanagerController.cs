@@ -20,7 +20,33 @@ namespace EventApp.Controllers.Admin
         // GET: AdmEventmanager
         public ActionResult Index()
         {
-            return View(db.Tbleventmanagers.ToList());
+            if (Session["admname"] != null)
+                return View(db.Tbleventmanagers.ToList());
+            else
+                return RedirectToAction("Index", "Login");
+        }
+
+        public string ChangeStatus(int? mid)
+        {
+            Tbleventmanager m = db.Tbleventmanagers.SingleOrDefault(a => a.Eventmanagerid == mid);
+            if (m != null)
+            {
+                string str = "";
+                if (m.Tbluser.Status == 0)
+                {
+                    str = "<a href='#' class='status' data-id='" + mid + "'><i class='ion ion-locked' ></i></a>";
+                    m.Tbluser.Status = 1;
+                }
+                else
+                {
+                    str = "<a href='#' class='status' data-id='" + mid + "'><i class='fa fa-lock-open' ></i></a>";
+                    m.Tbluser.Status = 0;
+                }
+                db.SaveChanges();
+                return str;
+            }
+            else
+                return "false";
         }
 
         // GET: AdmEventmanager/Details/5
@@ -51,48 +77,5 @@ namespace EventApp.Controllers.Admin
             }
         }
 
-        // GET: AdmEventmanager/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: AdmEventmanager/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: AdmEventmanager/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: AdmEventmanager/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

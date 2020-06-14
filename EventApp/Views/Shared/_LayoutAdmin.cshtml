@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="~/Content/admin/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="~/Scripts/admin/plugins/jquery/jquery.min.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -134,6 +136,18 @@
                                 <p>Managertender</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","AdmReportEventmanager",null)" class="nav-link">
+                                <i class="fa fa-arrow-right nav-icon"></i>
+                                <p>ReportEventmanager</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","AdmReportUser",null)" class="nav-link">
+                                <i class="fa fa-arrow-right nav-icon"></i>
+                                <p>ReportUser</p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -193,8 +207,6 @@
 
     </div>
     <!-- ./wrapper -->
-    <!-- jQuery -->
-    <script src="~/Scripts/admin/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="~/Scripts/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- DataTables -->

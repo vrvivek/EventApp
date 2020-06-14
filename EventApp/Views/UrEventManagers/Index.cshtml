@@ -4,54 +4,76 @@
     ViewBag.Title = "Eventmanager";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
-<section id="event-section" class="event-section bg-gray-light clearfix" style="padding:30px;margin:20px;">
-    <div class="row justify-content-center col-md-12">
-        <div id="grid-style" class="tab-pane fade in active show col-md-12">
-            <div class="row justify-content-center">
+
+<section id="event-section" class="event-section bg-gray-light clearfix col-md-12 col-lg-12 col-sm-12" style="padding: 10px 0px 10px 0px;">
+    <div class="row justify-content-center container col-md-12 col-sm-12 col-lg-12">
+        <div class="search-result-form">
+            <form action="#" id="search" method="post">
+                <ul>
+                    <li>
+                        <label for="year-select">Rating:</label>
+                        <i class="far fa-star st1" data-id="1" style="color:#FFC107"></i>
+                        <i class="far fa-star st2" data-id="2" style="color:#FFC107"></i>
+                        <i class="far fa-star st3" data-id="3" style="color:#FFC107"></i>
+                        <i class="far fa-star st4" data-id="4" style="color:#FFC107"></i>
+                        <i class="far fa-star st5" data-id="5" style="color:#FFC107"></i>
+                        <input type="number" name="Rating" id="Rating" placeholder="Rating" value="0" required />
+                    </li>
+                    <li>
+                        <label for="munth-select">Name:</label>
+                        <input type="text" id="name" name="name" autocomplete="off"/>
+                    </li>
+                    <li>
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</section>
+<section id="event-section" class="event-section bg-gray-light clearfix col-md-12 col-lg-12 col-sm-12" style="padding:30px;margin:20px;">
+    <div class="row justify-content-center col-md-12 col-lg-12 col-sm-12">
+        <div id="grid-style" class="tab-pane fade in active show col-md-12 col-lg-12 col-sm-12">
+            <div class="row justify-content-center col-md-12 col-lg-12 col-sm-12">
                 @foreach (var item in Model)
                 {
                     <!-- event-grid-item - start -->
-                    <div class="col-lg-4 col-md-4 col-sm-12">
-                        <div class="event-grid-item" style="padding:0px;margin:0px;">
+                    <div class="col-lg-4 col-md-4 col-sm-12" style="padding-bottom:10px;margin-bottom:10px;">
+                        <div class="event-grid-item col-md-12 col-lg-12 col-sm-12 row" style="padding:0px;margin:0px;">
                             <!-- event-image - start -->
-                            <div class="event-image col-md-12">
-                                @*<div class="post-date">
-                                        <span class="date">10</span>
-                                        <small class="month">june</small>
-                                    </div>*@
-                                @*<img src="@item.Coverpic" />*@
-                                <img src="~/Content/Shared/Eventer_Image/@item.Coverpic" alt="Image_not_found" style="width:354.66px;height:235px;" class="col-md-12">
+                            <div class="event-image row col-md-12">
+                                <img src="~/Content/Shared/Eventer_Image/@item.Coverpic" alt="Image_not_found" style="width:354.66px !important;height:235px !important;" class="col-md-12">
                             </div>
                             <!-- event-image - end -->
                             <!-- event-content - start -->
-                            <div class="event-content">
+                            <div class="event-content col-md-12">
                                 <div class="event-title mb-30">
-                                    <h3 class="title col-md-12">
+                                    <h3 class="title row col-md-12">
                                         @item.Name
                                     </h3>
                                     <span class="ticket-price yellow-color"> </span>
                                 </div>
-                                <div class="event-post-meta ul-li-block mb-30 col-md-12">
+                                <div class="event-post-meta ul-li-block mb-30 row col-md-12">
                                     <ul>
-                                        <li class="col-md-12">
-                                            <span class="icon">
-                                                <i class="far fa-calendar"></i>
-                                            </span>
-                                            @item.Tbluser.Registrationdate.Day @item.Tbluser.Registrationdate.ToString("MMMM") @item.Tbluser.Registrationdate.Year
-                                        </li>
-                                        <li class="col-md-12">
+                                        @*<li class="col-md-12">
+                                                <span class="icon">
+                                                    <i class="far fa-calendar"></i>
+                                                </span>
+                                                @item.Tbluser.Registrationdate.Day @item.Tbluser.Registrationdate.ToString("MMMM") @item.Tbluser.Registrationdate.Year
+                                            </li>*@
+                                        <li class="row col-md-12">
                                             <span class="icon">
                                                 <i class="fa fa-building"></i>
                                             </span>
                                             @item.Companyname
                                         </li>
-                                        <li class="col-md-12">
+                                        <li class="row col-md-12">
                                             <span class="icon">
                                                 <i class="fa fa-info-circle"></i>
                                             </span>
                                             @item.About
                                         </li>
-                                        <li class="col-md-12">
+                                        <li class="row col-md-12">
                                             <span class="icon">
                                                 <i class="fa fa-globe"></i>
                                             </span>
@@ -74,56 +96,42 @@
         </div>
     </div>
 </section>
-@*<table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Tbluser.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Companyname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Website)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.About)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Coverpic)
-            </th>
-            <th></th>
-        </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tbluser.Username)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Companyname)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Website)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.About)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Coverpic)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Eventmanagerid }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Eventmanagerid }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Eventmanagerid })
-                </td>
-            </tr>
+
+<script type="text/javascript">
+    $("#Rating").hide();
+    function rating(id) {
+        for (i = 1; i <= 5; i++) {
+            if (i <= id)
+                $(".st" + i).attr("class", "fas fa-star st" + i);
+            else
+                $(".st" + i).attr("class", "far fa-star st" + i);
         }
-
-    </table>*@
+        //console.error(id);
+        $("#Rating").attr("value", id);
+        //$("#search").submit();
+    }
+    $(".st1").click(function () {
+        var id = $(".st1").attr("data-id");
+        rating(id);
+    });
+    $(".st2").click(function () {
+        var id = $(".st2").attr("data-id");
+        rating(id);
+    });
+    $(".st3").click(function () {
+        var id = $(".st3").attr("data-id");
+        rating(id);
+    });
+    $(".st4").click(function () {
+        var id = $(".st4").attr("data-id");
+        rating(id);
+    });
+    $(".st5").click(function () {
+        var id = $(".st5").attr("data-id");
+        rating(id);
+    });
+    $("#name").keyup(function () {
+        //$("#search").submit();
+    });
+</script>

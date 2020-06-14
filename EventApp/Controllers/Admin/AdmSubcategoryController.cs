@@ -17,8 +17,13 @@ namespace EventApp.Controllers.Admin
         // GET: AdmSubcategory
         public ActionResult Index()
         {
-            var tblsubcategories = db.Tblsubcategories.Include(t => t.Tblcategory);
-            return View(tblsubcategories.ToList());
+            if (Session["admid"] != null)
+            {
+                var tblsubcategories = db.Tblsubcategories.Include(t => t.Tblcategory);
+                return View(tblsubcategories.ToList());
+            }
+             else
+                return RedirectToAction("Index", "Login");
         }
 
         // GET: AdmSubcategory/Details/5

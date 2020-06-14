@@ -24,8 +24,13 @@ namespace EventApp.Controllers.Admin
         // GET: AdmCity
         public ActionResult Index()
         {
-            var tblcities = db.Tblcities.Include(t => t.Tblstate);
-            return View(tblcities.ToList());
+            if (Session["admname"] != null)
+            {
+                var tblcities = db.Tblcities.Include(t => t.Tblstate);
+                return View(tblcities.ToList());
+            }
+            else
+                return RedirectToAction("Index", "Login");
         }
 
         // GET: AdmCity/Details/5

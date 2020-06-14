@@ -20,7 +20,10 @@ namespace EventApp.Controllers.Admin
         // GET: AdmCategory
         public ActionResult Index()
         {
-            return View(db.Tblcategories.ToList());
+            if (Session["admname"] != null)
+                return View(db.Tblcategories.ToList());
+            else
+                return RedirectToAction("Index", "Login");
         }
 
         // GET: AdmCategory/Details/5

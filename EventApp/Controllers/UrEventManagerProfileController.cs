@@ -51,15 +51,58 @@ namespace EventApp.Controllers
                 return RedirectToAction("Index", "UrLogin");
         }
 
-        public string MyEvents()
+        public ActionResult MyEvents()
         {
-            return "csdfsf";
+            if (Session["uid"] != null && Session["mid"] != null)
+            {
+                int id = Convert.ToInt32(Session["mid"]);
+                return View(db.Tblmanagertenders.Where(a => a.Eventmanagerid == id).ToList());
+            }
+            else
+                return RedirectToAction("Index", "UrLogin");
         }
 
-        // GET: UrClientProfile/MyEventsDetails/5
-        public ActionResult MyEventsDetails(int id)
+        // GET: UrEventManagerProfile/MyEventsDetails/5
+        public ActionResult MyEventsDetails(int? id, int? st = 0)
         {
-            return View();
+            if (Session["uid"] != null && Session["mid"] != null)
+            {
+                if (st == 1)
+                    ViewBag.stmsg = "success";
+                return View(db.Tblmanagertenders.SingleOrDefault(a => a.Managertenderid == id));
+            }
+            else
+                return RedirectToAction("Index", "UrLogin");
+        }
+
+        public ActionResult SelectEventBid(int id, int bid)
+        {
+            if (Session["mid"] != null)
+            {
+                Tblmanagertender t = db.Tblmanagertenders.SingleOrDefault(a => a.Managertenderid == id);
+                Tblmanagertenderbid utb = db.Tblmanagertenderbids.SingleOrDefault(b => b.Managertenderbidid == bid && b.Managertenderid == id);
+                t.Status = 2;
+                utb.Is_selected = 1;
+                db.SaveChanges();
+                return RedirectToAction("MyEventsDetails/" + id, new { st = 1 });
+            }
+            else
+                return RedirectToAction("Index", "UrLogin");
+        }
+
+        public string EditUserEvent(int tid, int Price, string Description, DateTime enddate)
+        {
+            if (Session["mid"] != null && tid != 0 && Price != 0 && Description != "" && enddate > DateTime.Now)
+            {
+                Tblmanagertender t = db.Tblmanagertenders.SingleOrDefault(a => a.Managertenderid == tid);
+                t.Price = Price;
+                t.Description = Description;
+                t.Endingdate = enddate;
+                db.SaveChanges();
+                return "true";
+            }
+            else
+                return "false";
         }
 
         // POST: UrEventManagerProfile/EditDetails

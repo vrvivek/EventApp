@@ -96,7 +96,7 @@
                     <div class="col-lg-6">
                         <div class="register-login-group">
                             <ul>
-                                @if (Session==null)
+                                @if (Session == null)
                                 {
                                     <li>
                                         <a href="@Url.Action("Register","UrLogin",null)" class="register-modal-btn">
@@ -156,10 +156,19 @@
                                                 <a href="#!">home</a>
                                             </li>
                                             <li class="menu-item-has-children">
-                                                <a href="@Url.Action("Index","UrEvents",null)">events</a>
+                                                <a href="@Url.Action("Index","UrEvents",null)">Events</a>
                                             </li>
+                                            @if (Session["mid"] != null)
+                                            {
+                                                <li class="menu-item-has-children">
+                                                    <a href="@Url.Action("ManagerEvents", "UrEvents", null)">Manager Events</a>
+                                                </li>
+                                            }
                                             <li>
                                                 <a href="@Url.Action("Index","UrEventManagers",null)">Event Managers</a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Index","UrChats",null)">Chats</a>
                                             </li>
                                             <li class="menu-item-has-children">
                                                 <a href="#!">
@@ -179,7 +188,9 @@
                                                     @if (Session["mid"] != null)
                                                     {
                                                         <li><a href="@Url.Action("Index","UrPastworks",null)">Pastworks</a></li>
+                                                        <li><a href="@Url.Action("create","UrPastworks",null)">Create Pastwork</a></li>
                                                         <li><a href="@Url.Action("MyEvents","UrEventManagerProfile",null)">Your Events</a></li>
+                                                        <li><a href="@Url.Action("ManagerEventCreate","UrEvents",null)">Create Event</a></li>
                                                     }
                                                     @if (Session["cid"] != null)
                                                     {
@@ -194,17 +205,17 @@
                                 <!-- menu-item-list - end -->
                                 <!-- menu-item-list - start -->
                                 @*<div class="col-lg-2">
-                                    <div class="user-search-btn-group ul-li clearfix">
-                                        <ul>
-                                            <li>
-                                                
-                                                <a href="#!">
-                                                    @Session["uname"] <i class="fas fa-user"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>*@
+                                        <div class="user-search-btn-group ul-li clearfix">
+                                            <ul>
+                                                <li>
+
+                                                    <a href="#!">
+                                                        @Session["uname"] <i class="fas fa-user"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>*@
                                 <!-- menu-item-list - end -->
 
                             </div>
@@ -366,14 +377,14 @@
                                 <!-- basic-info-item - start -->
                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                     @*<div class="basic-info-item">
-                                        <span class="icon">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                        </span>
-                                        <div class="info-content">
-                                            <p>100 highland ave,</p>
-                                            <h3>california, united state</h3>
-                                        </div>
-                                    </div>*@
+                                            <span class="icon">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                            </span>
+                                            <div class="info-content">
+                                                <p>100 highland ave,</p>
+                                                <h3>california, united state</h3>
+                                            </div>
+                                        </div>*@
                                 </div>
                                 <!-- basic-info-item - end -->
                                 <!-- basic-info-item - start -->
@@ -396,88 +407,88 @@
                     <!-- basic-info - end -->
                     <!-- about-wrapper - start -->
                     @*<div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="about-wrapper">
+                            <div class="about-wrapper">
 
-                            <!-- site-logo-wrapper - start -->
-                            <div class="site-logo-wrapper mb-30">
-                                <a href="index-1.html" class="logo">
-                                    <img src="~/Content/User/assets/images/site-logo1.png" alt="logo_not_found">
-                                </a>
+                                <!-- site-logo-wrapper - start -->
+                                <div class="site-logo-wrapper mb-30">
+                                    <a href="index-1.html" class="logo">
+                                        <img src="~/Content/User/assets/images/site-logo1.png" alt="logo_not_found">
+                                    </a>
+                                </div>
+                                <!-- site-logo-wrapper - end -->
+
+                                <p class="mb-30">
+                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna.
+                                </p>
+
                             </div>
-                            <!-- site-logo-wrapper - end -->
-
-                            <p class="mb-30">
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna.
-                            </p>
-
-                        </div>
-                    </div>*@
+                        </div>*@
                     <!-- about-wrapper - end -->
                     <!-- usefullinks-wrapper - start -->
                     @*<div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="usefullinks-wrapper ul-li-block">
-                            <h3 class="footer-item-title">
-                                useful <strong>links</strong>
-                            </h3>
-                            <ul>
-                                <li><a href="#!">Birthday Party</a></li>
-                                <li><a href="#!">Business meeting</a></li>
-                                <li><a href="#!">Conference</a></li>
-                                <li><a href="#!">Food Event</a></li>
-                                <li><a href="#!">Musical Event</a></li>
-                                <li><a href="#!">Wedding Party</a></li>
-                            </ul>
+                            <div class="usefullinks-wrapper ul-li-block">
+                                <h3 class="footer-item-title">
+                                    useful <strong>links</strong>
+                                </h3>
+                                <ul>
+                                    <li><a href="#!">Birthday Party</a></li>
+                                    <li><a href="#!">Business meeting</a></li>
+                                    <li><a href="#!">Conference</a></li>
+                                    <li><a href="#!">Food Event</a></li>
+                                    <li><a href="#!">Musical Event</a></li>
+                                    <li><a href="#!">Wedding Party</a></li>
+                                </ul>
 
-                        </div>
-                    </div>*@
+                            </div>
+                        </div>*@
                     <!-- usefullinks-wrapper - end -->
                     <!-- usefullinks-wrapper - start -->
                     @*<div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="usefullinks-wrapper ul-li-block">
-                            <h3 class="footer-item-title">
-                                useful <strong>links</strong>
-                            </h3>
-                            <ul>
-                                <li><a href="#!">About Eventively</a></li>
-                                <li><a href="#!">Disclaimer</a></li>
-                                <li><a href="#!">Contact us</a></li>
-                                <li><a href="#!">Events Schedule</a></li>
-                                <li><a href="#!">Sponsors</a></li>
-                                <li><a href="#!">Venues</a></li>
-                            </ul>
+                            <div class="usefullinks-wrapper ul-li-block">
+                                <h3 class="footer-item-title">
+                                    useful <strong>links</strong>
+                                </h3>
+                                <ul>
+                                    <li><a href="#!">About Eventively</a></li>
+                                    <li><a href="#!">Disclaimer</a></li>
+                                    <li><a href="#!">Contact us</a></li>
+                                    <li><a href="#!">Events Schedule</a></li>
+                                    <li><a href="#!">Sponsors</a></li>
+                                    <li><a href="#!">Venues</a></li>
+                                </ul>
 
-                        </div>
-                    </div>*@
+                            </div>
+                        </div>*@
                     <!-- usefullinks-wrapper - end -->
                     <!-- instagram-wrapper - start -->
                     @*<div class="col-lg-3 col-md-6 col-sm-12">
-                        <div class="instagram-wrapper ul-li">
-                            <h3 class="footer-item-title">
-                                Eventively <strong>instagram</strong>
-                            </h3>
-                            <ul>
-                                <li class="image-wrapper">
-                                    <img src="~/Content/User/assets/images/footer/instagram/img1.png" alt="Image_not_found">
-                                    <a href="#!"><i class="fab fa-instagram"></i></a>
-                                </li>
-                                <li class="image-wrapper">
-                                    <img src="~/Content/User/assets/images/footer/instagram/img2.png" alt="Image_not_found">
-                                    <a href="#!"><i class="fab fa-instagram"></i></a>
-                                </li>
-                                <li class="image-wrapper">
-                                    <img src="~/Content/User/assets/images/footer/instagram/img3.png" alt="Image_not_found">
-                                    <a href="#!"><i class="fab fa-instagram"></i></a>
-                                </li>
-                                <li class="image-wrapper">
-                                    <img src="~/Content/User/assets/images/footer/instagram/img4.png" alt="Image_not_found">
-                                    <a href="#!"><i class="fab fa-instagram"></i></a>
-                                </li>
-                            </ul>
-                            <h4 class="followus-link">
-                                Follow Our Instagram <a href="#!">#Eventively</a>
-                            </h4>
-                        </div>
-                    </div>*@
+                            <div class="instagram-wrapper ul-li">
+                                <h3 class="footer-item-title">
+                                    Eventively <strong>instagram</strong>
+                                </h3>
+                                <ul>
+                                    <li class="image-wrapper">
+                                        <img src="~/Content/User/assets/images/footer/instagram/img1.png" alt="Image_not_found">
+                                        <a href="#!"><i class="fab fa-instagram"></i></a>
+                                    </li>
+                                    <li class="image-wrapper">
+                                        <img src="~/Content/User/assets/images/footer/instagram/img2.png" alt="Image_not_found">
+                                        <a href="#!"><i class="fab fa-instagram"></i></a>
+                                    </li>
+                                    <li class="image-wrapper">
+                                        <img src="~/Content/User/assets/images/footer/instagram/img3.png" alt="Image_not_found">
+                                        <a href="#!"><i class="fab fa-instagram"></i></a>
+                                    </li>
+                                    <li class="image-wrapper">
+                                        <img src="~/Content/User/assets/images/footer/instagram/img4.png" alt="Image_not_found">
+                                        <a href="#!"><i class="fab fa-instagram"></i></a>
+                                    </li>
+                                </ul>
+                                <h4 class="followus-link">
+                                    Follow Our Instagram <a href="#!">#Eventively</a>
+                                </h4>
+                            </div>
+                        </div>*@
                     <!-- instagram-wrapper - end -->
 
                 </div>
@@ -500,11 +511,11 @@
                     <div class="col-lg-5 col-md-12 col-sm-12">
                         <div class="footer-menu">
                             @*<ul>
-                                <li><a href="contact.html">Contact us</a></li>
-                                <li><a href="about.html">About us</a></li>
-                                <li><a href="#!">Site map</a></li>
-                                <li><a href="#!">Privacy policy</a></li>
-                            </ul>*@
+                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="about.html">About us</a></li>
+                                    <li><a href="#!">Site map</a></li>
+                                    <li><a href="#!">Privacy policy</a></li>
+                                </ul>*@
                         </div>
                     </div>
                     <!-- footer-menu - end -->
